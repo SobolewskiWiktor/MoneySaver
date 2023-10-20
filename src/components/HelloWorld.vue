@@ -107,6 +107,7 @@
 </template>
 
 <script lang="ts">
+  import router from "@/router/index";
   import "@/CSS/Main.css";
   import { useToast } from "vue-toastification";
   const toast = useToast()
@@ -150,6 +151,7 @@
          if(checkFailedLogin == 0)
          {
           this.myUseToast('I will login you', 'success');
+          this.$router.push('/dashboard');
          }
 
         }

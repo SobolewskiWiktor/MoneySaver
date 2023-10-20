@@ -1,23 +1,21 @@
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
-
-const routes = [
-  {
-    path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
-      {
-        path: '',
-        name: 'Home',
-        component: () => import('@/views/Home.vue'),
-      },
-    ],
-  },
-]
+import HomeView from '@/components/HelloWorld.vue'
+import dashboard from '@/components/Dashboard.vue'
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: dashboard
+    }
+  ]
 })
 
 export default router
