@@ -68,11 +68,12 @@
 {
     width: 100%;
     height: 100px;
+    margin-left: 10     px;
 }
 #SaveSearcher
 {
     width: 950px;
-    margin-left: 3""0px;
+    margin-left: 30px;
     height: 100px;
     display: flex;
     align-items: center;
@@ -96,7 +97,83 @@
 {
     width: 850px;
     height: 95%;
-    background-color: #71797E;
+    background-color: #424242;
     margin-left: 50px;
     border-radius: 18px;
+}
+#savingDeatilsTitle
+{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+#savingDeatilsTitle h1
+{
+    color: #41b883;
+    font-size: 23px;
+    margin-left: 15px;
+}
+#savingDetailsProgress
+{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#savingDetailsProgress h1
+{
+    color: white;
+    font-size: 15px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+#savingDetailsPaymentsList
+{
+    margin-top: 50px;
+    width: 60%;
+    height: 500px;
+    overflow-y: scroll;
+}
+#paylemtDetailsContent
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#savingDetailsText
+{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+#savingDetailsTextRow
+{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+#savingDetailsTextTitle
+{
+    width: 100%;
+    height: 30px;
+    color: #41b883;
+}
+#savingDetailsTextTitleSecond
+{
+    width: 100%;
+    height: 30px;
+    color: #41b883;
+    margin-top: 30px;
 }
