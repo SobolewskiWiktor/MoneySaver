@@ -1,0 +1,383 @@
+<template>
+    <div id="dashboardContent">
+        <div id="dashboardMenu">
+            <div id="dashboardLogo">
+                <img id="logo" src="@/Images/Logo_White.png">
+            </div>
+            <div id="dashboardMenuOptions">
+                <div id="dashboardMenuOption">
+                    <v-btn
+                    class="text-white h-50"
+                    variant="outlined"
+                    >
+                        Home
+                    </v-btn>
+                </div>
+                <div id="dashboardMenuOption">
+                    <v-btn
+                    class="text-white h-50"
+                    variant="outlined"
+                    >
+                        Add Saving
+                    </v-btn>
+                </div>
+                <div id="dashboardMenuOption">
+                    <v-btn
+                    class="text-white h-50"
+                    variant="outlined"
+                    >
+                        Settings
+                    </v-btn>
+                </div>
+                <div id="dashboardMenuOption">
+                    <v-btn
+                    class="text-white h-50"
+                    variant="outlined"
+                    >
+                        Logout
+                    </v-btn>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboardContentTwo">
+            <div id="contentTitle">
+                <h1>Hi Test user</h1>
+            </div>
+            <div id="contentSaveSearcher">
+                <div id="SaveSearcher">
+                    <v-text-field
+                        class="w-50 text-white"
+                        label="Search"
+                    ></v-text-field>
+                </div>
+            </div>
+            <div id="dashboardContentSavings">
+               <div id="dashboardSavingsList">
+                    <v-card
+                        class="mx-auto text-white mt-5"
+                        width="950"
+                        variant="outlined"
+                        >
+                        <v-card-item>
+                            <div>
+                            <div class="text-h6 mb-1">
+                               Sample saving
+                            </div>
+                            <div class="text-caption">Description about saving</div>
+                            </div>
+                        </v-card-item>
+                        <v-card-actions>
+                            <v-btn
+                             variant="tonal"
+                            >
+                            Details
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+               </div>
+
+               <div id="dashboardSavingsDetails">
+
+
+                    <div id="savingDeatilsTitle">
+                        <h1>SampleSaving</h1>
+                    </div>
+
+
+                    <div id="savingDetailsProgress">
+                        <h1>Progress:</h1>
+                        <v-progress-linear
+                            class="w-75 text-white"
+                            v-model="test"
+                            color="deep-purple-accent-4"
+                            height="25"
+                        >
+                            <template v-slot:default="{ value }">
+                                <strong>{{ Math.ceil(value) }}%</strong>
+                            </template>
+                        </v-progress-linear>
+                    </div>
+                    
+                    <div id="paylemtDetailsContent">
+                        <div id="savingDetailsPaymentsList">
+                            <v-card
+                            class="mx-auto text-green mt-5"
+                            width="450"
+                            variant="outlined"
+                            >
+                                <v-card-item>
+                                    <div>
+                                        <div class="text-h6 mb-1">
+                                        Incoming 500zł
+                                        </div>
+                                    </div>
+                                </v-card-item>
+                            </v-card>
+                            <v-card
+                            class="mx-auto text-red mt-5"
+                            width="450"
+                            variant="outlined"
+                            >
+                                <v-card-item>
+                                    <div>
+                                        <div class="text-h6 mb-1">
+                                        payoff 200zł
+                                        </div>
+                                    </div>
+                                </v-card-item>
+                            </v-card>
+                        </div>
+
+                        <div id="savingDetailsText">
+                            <div id="savingDetailsTextTitle">Details:</div>
+                            <div id="savingDetailsTextRow">
+                                <v-card
+                                    class="mx-auto text-gray"
+                                    width="250"
+                                    variant="tonal"
+                                    >
+                                        <v-card-item>
+                                            <div>
+                                                <div class="text-h6 mb-1">
+                                                To save: 1200zł
+                                                </div>
+                                            </div>
+                                        </v-card-item>
+                                </v-card>
+                            </div>
+                            <div id="savingDetailsTextRow">
+                                <v-card
+                                    class="mx-auto text-gray"
+                                    width="250"
+                                    variant="tonal"
+                                    >
+                                        <v-card-item>
+                                            <div>
+                                                <div class="text-h6 mb-1">
+                                                  Saved: 300zł
+                                                </div>
+                                            </div>
+                                        </v-card-item>
+                                </v-card>
+                            </div>
+                            <div id="savingDetailsTextTitleSecond">Options:</div>
+                            <div id="savingDetailsTextRow">
+                                <v-btn
+                                class="text-green"
+                                variant="tonal"
+                                >
+                                    Deposit
+                                </v-btn>
+                                <v-btn
+                                class="text-red ml-5"
+                                variant="tonal"
+                                >
+                                    Wihdraw
+                                </v-btn>
+                            </div>
+                        </div>
+                    </div>
+
+               </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+<script lang="ts">
+import "@/CSS/Dashboard.css";
+import { IncomingMessage } from "http";
+import { ref } from 'vue'
+
+const variants = ['elevated', 'flat', 'tonal', 'outlined']
+const color = ref('indigo')
+export default {
+    data () {
+      return {
+        test:10,
+      }
+    },
+}
+</script>
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+#dashboardContent
+{
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #212121;
+}
+#dashboardMenu
+{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    background-color: #4A148C;
+}
+#dashboardLogo
+{
+    width: 250px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo
+{
+    width: 150px;
+}
+#dashboardMenuOptions
+{
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#dashboardMenuOption
+{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#dashboardContentTwo
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#contentTitle
+{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+#contentTitle h1
+{
+    margin-left: 20px;
+    color: #41b883;
+}
+#contentSaveSearcher
+{
+    width: 100%;
+    height: 100px;
+    margin-left: 10     px;
+}
+#SaveSearcher
+{
+    width: 950px;
+    margin-left: 30px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+#dashboardContentSavings
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#dashboardSavingsList
+{
+    width: 950px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#dashboardSavingsDetails
+{
+    width: 850px;
+    height: 95%;
+    background-color: #424242;
+    margin-left: 50px;
+    border-radius: 18px;
+}
+#savingDeatilsTitle
+{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+#savingDeatilsTitle h1
+{
+    color: #41b883;
+    font-size: 23px;
+    margin-left: 15px;
+}
+#savingDetailsProgress
+{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#savingDetailsProgress h1
+{
+    color: white;
+    font-size: 15px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+#savingDetailsPaymentsList
+{
+    margin-top: 50px;
+    width: 60%;
+    max-height: 450px;
+    overflow-y: scroll;
+}
+#paylemtDetailsContent
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#savingDetailsText
+{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+#savingDetailsTextRow
+{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+#savingDetailsTextTitle
+{
+    width: 100%;
+    height: 30px;
+    color: #41b883;
+}
+#savingDetailsTextTitleSecond
+{
+    width: 100%;
+    height: 30px;
+    color: #41b883;
+    margin-top: 30px;
+}

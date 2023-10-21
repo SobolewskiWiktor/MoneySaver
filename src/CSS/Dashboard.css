@@ -1,179 +1,208 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 #dashboardContent
 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat',sans-serif !important;
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #212121;
+    background-color: whitesmoke;
 }
-#dashboardMenu
+#dashboardMenuBar
+{
+    margin-top: 5px;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+#dashboardMenuBarLeftSide
+{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #424242;
+    border-radius: 0 18px 18px 0;
+}
+#appLogo
+{
+    width: 150px;
+}
+#dashboardMenuBarRightSide
+{
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #424242;
+    border-radius: 18px 0 0 18px;
+    margin-left: 5px;
+    align-items: center;
+}
+#dashboardMenuBarRightButtons
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#buttonMenuContainer
+{
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+#dashboardContentStatistics
+{
+    margin-top: 50px;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#dashboardContentStatisticsFirstSection
+{
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#dashboardContentStatisticsSecondSection
+{
+    width: 400px;
+    height: 100%;
+    display: flex;
+    margin-left: 30px;
+}
+#dashboardContentStatisticsThirdSection
+{
+    width: 400px;
+    height: 100%;
+    display: flex;
+    margin-left: 30px;
+}
+#StatisticFirstTitle
 {
     width: 100%;
     height: 50px;
     display: flex;
-    flex-direction: row;
-    background-color: #4A148C;
-}
-#dashboardLogo
-{
-    width: 250px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
-}
-#logo
-{
-    width: 150px;
-}
-#dashboardMenuOptions
-{
-    width: auto;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-}
-#dashboardMenuOption
-{
-    width: 150px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#dashboardContentTwo
-{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#contentTitle
-{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-}
-#contentTitle h1
-{
-    margin-left: 20px;
     color: #41b883;
 }
-#contentSaveSearcher
+#StatisticFirstTitle h1
 {
-    width: 100%;
-    height: 100px;
-    margin-left: 10     px;
-}
-#SaveSearcher
-{
-    width: 950px;
-    margin-left: 30px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-}
-#dashboardContentSavings
-{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-#dashboardSavingsList
-{
-    width: 950px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-#dashboardSavingsDetails
-{
-    width: 850px;
-    height: 95%;
-    background-color: #424242;
-    margin-left: 50px;
-    border-radius: 18px;
-}
-#savingDeatilsTitle
-{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-}
-#savingDeatilsTitle h1
-{
-    color: #41b883;
-    font-size: 23px;
     margin-left: 15px;
 }
-#savingDetailsProgress
+#StatisticFirstContent
 {
     width: 100%;
-    height: 80px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#StatisticFirstContentLeft
+{
+    width: 200px;
+    height: 328px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
-#savingDetailsProgress h1
+#statisticFirstContentLeftBox
+{
+    margin-top: 5px;
+    width: 174px;
+    height: 159px;
+    display: flex;
+    border-radius: 18px;
+    background-color: #424242;
+    flex-direction: column;
+}
+#statsticFirstContentRight
+{
+    width: 250px;
+    height: 328px;
+    display: flex;
+    background-color: #424242;
+    border-radius: 18px;
+    margin-left: 5px;
+}
+#statisticFirstContentLeftBoxTitle
+{
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+}
+#statisticFirstContentLeftBoxTitle h1
 {
     color: white;
     font-size: 15px;
-    margin-left: 50px;
-    margin-bottom: 15px;
-    font-weight: 400;
-    font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
+    font-weight: 400;
 }
-#savingDetailsPaymentsList
-{
-    margin-top: 50px;
-    width: 60%;
-    height: 500px;
-    overflow-y: scroll;
-}
-#paylemtDetailsContent
+#statisticFirstContentLeftBoxContent
 {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-#savingDetailsText
-{
-    width: 40%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 20px;
-}
-#savingDetailsTextRow
-{
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    display: flex;
     flex-direction: row;
+    align-items: center;
+}
+#leftBoxContentNumber
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#leftBoxContentNumber h1 
+{
     color: white;
+    font-size: 45px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
-#savingDetailsTextTitle
+#leftBoxContentImage
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    padding: 25px 0 0 0;
+}
+#leftBoxContentImageBroken
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    padding: 15px 0 0 0;
+}
+#piggybankIcon
+{
+    width: 40px;
+    height: 40px;
+}
+#piggybankIconBroken
+{
+    width: 45px;
+    height: 45px;
+}
+#statisticFirstContentRightTitle
 {
     width: 100%;
     height: 30px;
-    color: #41b883;
+    padding: 20px;
+    display: flex;
 }
-#savingDetailsTextTitleSecond
+#statisticFirstContentRightTitle h1
 {
-    width: 100%;
-    height: 30px;
-    color: #41b883;
-    margin-top: 30px;
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
 }
