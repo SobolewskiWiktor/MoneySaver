@@ -6,20 +6,21 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
+    background-color: #DED1B7;
 }
 #dashboardMenuBar
 {
-    margin-top: 5px;
     width: 100%;
-    height: 80px;
+    height: 120px;
     display: flex;
     flex-direction: row;
+    background-color: #262018;
+    align-items: center;
 }
 #dashboardMenuBarLeftSide
 {
     width: 20%;
-    height: 100%;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +34,7 @@
 #dashboardMenuBarRightSide
 {
     width: 85%;
-    height: 100%;
+    height: 80px;
     display: flex;
     flex-direction: row;
     background-color: #424242;
@@ -51,7 +52,7 @@
 }
 #buttonMenuContainer
 {
-    width: 100px;
+    width: 120px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -60,33 +61,37 @@
 }
 #dashboardContentStatistics
 {
-    margin-top: 50px;
     width: 100%;
-    height: 40%;
+    min-height: 400px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: #262018;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0px 27px 46px 0px rgba(0, 0, 0, 0.7);
 }
 #dashboardContentStatisticsFirstSection
 {
-    width: 400px;
+    width: 550px;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 #dashboardContentStatisticsSecondSection
 {
-    width: 400px;
+    width: 450px;
     height: 100%;
     display: flex;
+    flex-direction: column;
     margin-left: 30px;
 }
 #dashboardContentStatisticsThirdSection
 {
-    width: 400px;
+    width: 450px;
     height: 100%;
     display: flex;
+    flex-direction: column;
     margin-left: 30px;
 }
 #StatisticFirstTitle
@@ -100,6 +105,7 @@
 #StatisticFirstTitle h1
 {
     margin-left: 15px;
+    font-weight: 400;
 }
 #StatisticFirstContent
 {
@@ -110,7 +116,7 @@
 }
 #StatisticFirstContentLeft
 {
-    width: 200px;
+    width: 250px;
     height: 328px;
     display: flex;
     flex-direction: column;
@@ -118,7 +124,7 @@
 #statisticFirstContentLeftBox
 {
     margin-top: 5px;
-    width: 174px;
+    width: 100%;
     height: 159px;
     display: flex;
     border-radius: 18px;
@@ -127,12 +133,13 @@
 }
 #statsticFirstContentRight
 {
-    width: 250px;
+    width: 300px;
     height: 328px;
     display: flex;
     background-color: #424242;
     border-radius: 18px;
     margin-left: 5px;
+    flex-direction: column;
 }
 #statisticFirstContentLeftBoxTitle
 {
@@ -204,5 +211,81 @@
 {
     font-size: 20px;
     color: white;
+    font-weight: 400;
+}
+#chartBox
+{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+#chart
+{
+    width: auto;
+    height: 256px;
+    box-sizing: unset; 
+}
+#statisticSecondBoxChart
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#statisticThirdAllBox
+{
+    width: 100%;
+    height: 95%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+#statisticThirdAllRow
+{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+#statisticThirdRowNumber
+{
+    width: 25px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#statisticThirdRowNumber h1
+{
+    color: #41b883;
+    font-weight: 400;
+    font-size: 25px;
+}
+#statisticThirdRowProgressBar
+{
+   margin-left: 15px;
+   width: 200px;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+#statisticThirdRowBankName
+{
+    margin-left: 20px;
+    width: 120px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#statisticThirdRowBankName h1
+{
+    color: white;
+    font-size: 20px;
     font-weight: 400;
 }
