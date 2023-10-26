@@ -242,6 +242,7 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    scrollbar-width: none;
 }
 #statisticThirdAllRow
 {
@@ -288,4 +289,49 @@
     color: white;
     font-size: 20px;
     font-weight: 400;
+}
+#dashboardContentDetails
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#futter
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    letter-spacing: 2px;
+    font-size: 15px;
+}
+a
+{
+    text-decoration: none;
+    color: black;
+}
+#dashboardContentDetailsSavingList
+{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#dashboardContentDetailsSavingDetails
+{
+    width: 60%;
+    height: 100%;
+    display: flex;
+}
+#dashboardContentDeatilsSavingListBox
+{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }

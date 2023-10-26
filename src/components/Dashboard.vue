@@ -166,6 +166,17 @@
                 </div>
             </div>
         </div>
+        <div id="dashboardContentDetails">
+            <div id="dashboardContentDetailsSavingList">
+              <div id="dashboardContentDeatilsSavingListBox"></div>
+            </div>
+            <div id="dashboardContentDetailsSavingDetails">
+
+            </div>
+        </div>
+        <div id="futter">
+            <a href="http://www.akcjabiznes.pl">AkcjaBiznes 2023 ©</a>
+        </div>
     </div>
 </template>
 <script lang="ts">
