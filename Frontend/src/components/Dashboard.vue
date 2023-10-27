@@ -308,6 +308,117 @@
                     </div>
                     
                  </div>
+                 <div id="dashboardContentDetailsSavingDetailsSecondRow">
+                
+                    <div id="detailSecondRowProgressBar">
+                        <div id="detailSecondRowProgressBarText">
+                            <div id="detalsSecondRowProgressBarTextStart">
+                                <div id="progressBarTextStartIcon">
+                                    <img id="startIcon" src="../Images/dollar-symbol.png">
+                                </div>
+                                <div id="progressBarTextStartAmmount">
+                                    120
+                                </div>
+                            </div>
+                            <div id="detalsSendRowProgressBarTextStop">
+                                <div id="progressBarTextStartIcon">
+                                    <img id="startIcon" src="../Images/route.png">
+                                </div>
+                                <div id="progressBarTextStopAmmount">
+                                    5000
+                                </div>
+                            </div>
+                        </div>
+                        <v-progress-linear
+                        v-model="test"
+                        color="blue"
+                        height="25"
+                        ></v-progress-linear>
+                    </div>
+                 </div>
+                <div id="dashboardContentDetailsSavingDetailsThirdRow">
+                    <div id="savingDetailsThirdRowLeft">
+                        <div id="thirdRowLeftScrollBoxList">
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+
+                            <div id="thirdRowLeftScrollListRowWithdraw">
+                                <div id="rowDepositImage">
+                                    <img id="WithdrawIcon" src="../Images/money-withdrawal.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+                            <div id="thirdRowLeftScrollListRowDeposit">
+                                <div id="rowDepositImage">
+                                    <img id="depositIcon" src="../Images/deposit.png">
+                                </div>
+                                <div id="rowDepositAmmount">
+                                    <h1>400</h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="savingDetailsThirdRowRight">
+                        <div id="rowRightTitle">
+                            <div id="rowRightTitleIcon">
+                                <img id="titleIcon" src="../Images/file.png">
+                            </div>
+                            <div id="rowRightTitleText">
+                                Description
+                            </div>
+                        </div>
+                        <div id="rowRightDescription">
+                            <div id="rowRightDescriptionbar"></div>
+                            <div id="rowRightDescriptionText">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quisquam nihil aliquid. Placeat sint laborum harum voluptatem sunt omnis id dolore nobis dicta pariatur voluptatum voluptas maiores eligendi deleniti illum magni enim in delectus consectetur, dolorem aperiam. Qui, alias quaerat.
+
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, vitae?
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut fugiat iste repudiandae? Molestiae quasi eos enim vel nihil ullam ratione?
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="futter">
@@ -332,6 +443,8 @@ export default {
             { title: 'Closed' },
         ],
         currentDisplayOptionDetailsSaving:'All',
+
+        settingOpton:'none',
 
         chartOptions: {
             chart: {
@@ -410,13 +523,22 @@ export default {
             const max = 90;
             const min = 20;
             const newData = this.series[0].data.map(() => {
-                return Math.floor(Math.random() * (max - min + 1)) + min
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             })
         },
         changeCurrentDisplaySaving(option:string)
         {
           this.currentDisplayOptionDetailsSaving = option;
+        },
+        changeSettingOption(option:string)
+        {
+            this.settingOpton = option;
+        },
+        closeSettingOption()
+        {
+            this.settingOpton = 'none';
         }
+
     }
 }
 </script>

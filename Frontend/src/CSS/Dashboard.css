@@ -293,9 +293,10 @@
 #dashboardContentDetails
 {
     width: 100%;
-    height: 100%;
+    min-height: 520px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 #futter
 {
@@ -317,14 +318,16 @@ a
 {
     margin-top: 30px;
     width: 40%;
-    height: 100%;
+    max-width: 900px;
+    height: 500px;
     display: flex;
     flex-direction: column;
 }
 #dashboardContentDetailsSavingDetails
 {
     width: 60%;
-    height: 100%;
+    height: 500px;
+    max-width: 1400px;
     display: flex;
     flex-direction: column;
 }
@@ -491,4 +494,232 @@ a
     display: flex;
     align-items: flex-end;
     margin-left: 20px;
+}
+#dashboardContentDetailsSavingDetailsSecondRow
+{
+    width: 100%;
+    height: 80px;
+    display: flex;
+}
+#detailSecondRowProgressBar
+{
+    margin-left: 50px;
+    width: 77%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#detailSecondRowProgressBarText
+{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#detalsSecondRowProgressBarTextStart
+{
+    width: 150px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#progressBarTextStartIcon
+{
+    width: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#startIcon
+{
+    width: 20px;
+    height: 20px;
+}
+#progressBarTextStartAmmount
+{
+    width: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #212121;
+    font-size: 20px;
+    margin-left: 5px;
+}
+#detalsSendRowProgressBarTextStop
+{
+    width: 150px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#progressBarTextStopAmmount
+{
+    min-width: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #212121;
+    font-size: 20px;
+    margin-left: 5px;
+}
+#dashboardContentDetailsSavingDetailsThirdRow
+{
+    margin-top: 40px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+}
+#savingDetailsThirdRowLeft
+{
+    width: 25%;
+    margin-left: 50px;
+    height: 100%;
+    display: flex;
+}
+#thirdRowLeftScrollBoxList
+{
+    width: 100%;
+    height: 290px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+#thirdRowLeftScrollListRowDeposit
+{
+    margin-top: 10px;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #41b883;
+    border-radius: 15px;
+    color: #41b883;
+}
+#rowDepositImage
+{
+    width: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#depositIcon
+{
+    width: 30px;
+    height: 30px;
+    filter: invert(62%) sepia(9%) saturate(2327%) hue-rotate(101deg) brightness(97%) contrast(94%);
+}
+#rowDepositAmmount
+{
+    width: 160px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#rowDepositAmmount h1
+{
+    font-size: 25px;
+    font-weight: 400;
+    margin-right: 20px;
+}
+#thirdRowLeftScrollListRowWithdraw
+{
+    margin-top: 10px;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid tomato;
+    border-radius: 15px;
+    color: tomato;
+}
+#WithdrawIcon
+{
+    width: 30px;
+    height: 30px;
+    filter: invert(58%) sepia(35%) saturate(6491%) hue-rotate(333deg) brightness(104%) contrast(101%);
+}
+#savingDetailsThirdRowRight
+{
+    width: 52%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(0, 0, 0, 0.236);
+    box-shadow: 0px 9px 50px -34px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 15px;
+    align-items: center;
+}
+#rowRightTitle
+{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+}
+#rowRightTitleIcon
+{
+    width: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#titleIcon
+{
+    width: 30px;
+    height: 30px;
+}
+#rowRightTitleText
+{
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 400;
+}
+#rowRightDescription
+{
+    margin-top: 20px;
+    width: 90%;
+    height: 70%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid rgba(0, 0, 0, 0.236);
+    box-shadow: 0px 9px 50px -34px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+#rowRightDescriptionbar
+{
+    width: 5px;
+    height: 95%;
+    background-color: #42A5F5;
+    box-shadow: 0px 0px 24px 0px #42A5F5;
+    border-radius: 20px;
+}
+#rowRightDescriptionText
+{
+    width: 90%;
+    height: 95%;
+    margin-left: 20px;
+    font-size: 15px;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
