@@ -15,12 +15,57 @@
                     </v-btn>
                  </div>
                  <div id="buttonMenuContainer">
-                    <v-btn
-                    class="text-cyan-lighten-2"
-                    variant="tonal"
-                    >
-                        Add Saving
-                    </v-btn>
+                    <v-dialog width="500">
+                            <template v-slot:activator="{ props }">
+                                <v-btn class="text-cyan-lighten-2" variant="tonal" v-bind="props" text="Add Saving"> </v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="New" color="grey-darken-3" class="text-green-accent-2">
+                                <v-card-text class="text-white" >
+                                    <div id="settingsDetailsBankRow">
+                                        <div id="settingsDetailsBankLeft">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Name"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                        <div id="settingsDetailsBankRight">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Ammount"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                    </div>
+                                    <v-textarea 
+                                    class="mt-6"
+                                    label="Description"></v-textarea>
+                                        <v-btn 
+                                        type="submit" 
+                                        block 
+                                        class="text-light-green-accent-3" 
+                                        variant="tonal" 
+                                        
+                                        >Submit</v-btn>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    class="text-light-blue-darken-3" 
+                                    variant="tonal"
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                  </div>
                  <div id="buttonMenuContainer">
                     <v-btn
@@ -282,28 +327,137 @@
                     </div>
                     <div id="savingDetailsFirstRowOptions">
                         <div id="buttonDetailContainer">
-                            <v-btn
+                            <!--<v-btn
                             class="text-light-blue-darken-3"
                             variant="tonal"
                             >
                                 Deposit
-                            </v-btn>
+                            </v-btn>-->
+                            <v-dialog width="500">
+                            <template v-slot:activator="{ props }">
+                                <v-btn class="text-light-blue-darken-3" variant="tonal" v-bind="props" text="Deposit"> </v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="Deposit" color="grey-darken-3" class="text-green-accent-2">
+                                <v-card-text class="text-white">
+                                        <v-text-field
+                                            :counter="10"
+                                            label="Ammount"
+                                            required
+                                            hide-details
+                                        ></v-text-field>
+                                        <v-btn 
+                                        type="submit" 
+                                        block 
+                                        class="text-light-green-accent-3 mt-5" 
+                                        variant="tonal" 
+                                        >Submit</v-btn>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    class="text-light-blue-darken-3" 
+                                    variant="tonal"
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                         </div>
                         <div id="buttonDetailContainer">
-                            <v-btn
-                            class="text-light-blue-darken-3"
-                            variant="tonal"
-                            >
-                                Payoff
-                            </v-btn>
+                            <v-dialog width="500">
+                            <template v-slot:activator="{ props }">
+                                <v-btn class="text-light-blue-darken-3" variant="tonal" v-bind="props" text="Withdraw"> </v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card color="grey-darken-3" class="text-green-accent-2" title="Withdraw">
+                                <v-card-text class="text-white">
+                                    <v-text-field
+                                            :counter="10"
+                                            label="Ammount"
+                                            required
+                                            hide-details
+                                        ></v-text-field>
+                                        <v-btn 
+                                        type="submit" 
+                                        block 
+                                        class="text-light-green-accent-3 mt-5" 
+                                        variant="tonal" 
+                                        >Submit</v-btn>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    class="text-light-blue-darken-3" 
+                                    variant="tonal"
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                         </div>
                         <div id="buttonDetailContainer">
-                            <v-btn
-                            class="text-light-blue-darken-3"
-                            variant="tonal"
-                            >
-                                Settings
-                            </v-btn>
+                            <v-dialog width="500">
+                            <template v-slot:activator="{ props }">
+                                <v-btn class="text-light-blue-darken-3" variant="tonal" v-bind="props" text="Settings"> </v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="Settings" color="grey-darken-3" class="text-green-accent-2">
+                                <v-card-text class="text-white" >
+                                    <div id="settingsDetailsBankRow">
+                                        <div id="settingsDetailsBankLeft">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Name"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                        <div id="settingsDetailsBankRight">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Ammount"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                    </div>
+                                    <v-textarea 
+                                    class="mt-6"
+                                    label="Description"></v-textarea>
+                                        <v-btn 
+                                        type="submit" 
+                                        block 
+                                        class="text-light-green-accent-3" 
+                                        variant="tonal" 
+                                        
+                                        >Submit</v-btn>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    class="text-light-blue-darken-3" 
+                                    variant="tonal"
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                         </div>
                     </div>
                     

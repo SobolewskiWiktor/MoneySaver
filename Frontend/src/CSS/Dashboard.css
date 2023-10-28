@@ -723,3 +723,31 @@ a
     overflow-y: scroll;
     scrollbar-width: none;
 }
+#settingsDetailsBankRow
+{
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+}
+#settingsDetailsBankLeft
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#settingsDetailsBankRight
+{
+    margin-left: 15px;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.test{
+    height: 200px;
+}
