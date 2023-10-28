@@ -7,14 +7,6 @@
             <div id="dashboardMenuBarRightSide">
                <div id="dashboardMenuBarRightButtons">
                  <div id="buttonMenuContainer">
-                    <v-btn
-                    class="text-cyan-lighten-2"
-                     variant="tonal"
-                    >
-                        Home
-                    </v-btn>
-                 </div>
-                 <div id="buttonMenuContainer">
                     <v-dialog width="500">
                             <template v-slot:activator="{ props }">
                                 <v-btn class="text-cyan-lighten-2" variant="tonal" v-bind="props" text="Add Saving"> </v-btn>
@@ -68,12 +60,72 @@
                             </v-dialog>
                  </div>
                  <div id="buttonMenuContainer">
-                    <v-btn
-                    class="text-cyan-lighten-2"
-                    variant="tonal"
-                    >
-                        Settings
-                    </v-btn>
+                    <v-dialog width="500">
+                            <template v-slot:activator="{ props }">
+                                <v-btn class="text-cyan-lighten-2" variant="tonal" v-bind="props" text="Settings"> </v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="Settings" color="grey-darken-3" class="text-green-accent-2">
+                                <v-card-text class="text-white" >
+                                    <div id="settingsDetailsBankRow">
+                                        <div id="settingsDetailsBankLeft">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Name"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                        <div id="settingsDetailsBankRight">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Surname"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                    </div>
+                                    <div id="settingsDetailsSettingsRow">
+                                        <div id="settingsDetailsBankLeft">
+                                            <v-text-field
+                                                :counter="10"
+                                                label="Mail"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                        <div id="settingsDetailsBankRight">
+                                            <v-text-field
+                                                :type="show1 ? 'text' : 'password'"
+                                                label="Password"
+                                                required
+                                                hide-details
+                                            ></v-text-field>
+                                        </div>
+                                    </div>
+                                        <v-btn 
+                                        type="submit" 
+                                        block 
+                                        class="text-light-green-accent-3" 
+                                        variant="tonal" 
+                                        
+                                        >Submit</v-btn>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    class="text-light-blue-darken-3" 
+                                    variant="tonal"
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                  </div>
                  <div id="buttonMenuContainer">
                     <v-btn
@@ -599,6 +651,10 @@ export default {
         currentDisplayOptionDetailsSaving:'All',
 
         settingOpton:'none',
+
+        show1: false,
+        show2: true,
+        password: 'Password',
 
         chartOptions: {
             chart: {
