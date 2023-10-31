@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Router } from "express";
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const prisma: PrismaClient = new PrismaClient();
 const router: Router = express.Router();
@@ -24,7 +25,9 @@ router.post("/login", async (req,res) => {
 
        if(match)
        {
-        res.status(200).json({login:'approved'})
+        const secretKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+        const token = jwt.sign(req.body, secretKey);
+        res.status(200).json({login:'approved', token: token})
        }
        else
        {
