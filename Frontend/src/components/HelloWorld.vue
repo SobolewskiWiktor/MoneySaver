@@ -110,6 +110,8 @@
   import router from "@/router/index";
   import "@/CSS/Main.css";
   import { useToast } from "vue-toastification";
+  import axios from 'axios';
+  
   const toast = useToast()
   export default {
     data () {
@@ -140,7 +142,7 @@
       {
         this.panelType = "login";
       },
-     login(action:string)
+     async login(action:string)
      {
       if(action == 'login')
       {
@@ -150,8 +152,25 @@
 
          if(checkFailedLogin == 0)
          {
-          this.myUseToast('I will login you', 'success');
-          this.$router.push('/dashboard');
+          let user = {
+                login: this.loginLogin,
+                password: this.loginPassword,
+          }
+          try
+          {
+            let loggin = await axios.post('http://localhost:3100/api/user/login', user) 
+            if(loggin.status== 200)
+            {
+              this.myUseToast('Login Success', 'success');
+              let token = loggin.data.token;
+              localStorage.setItem('token', token);
+              this.$router.push('/dashboard');
+            }
+          }
+          catch(err)
+          {
+            this.myUseToast('Login Failed', 'error');
+          }
          }
 
         }
@@ -166,7 +185,20 @@
           
           if(checkFailedRegister == 0)
           {
-            this.myUseToast('I will register you', 'success');
+            let user = {
+                name: this.registerName,
+                surname: this.registerSurname,
+                login: this.registerLogin,
+                password: this.registerPassword,
+                mail: this.registerMail
+            }
+
+            const loggin = await axios.post('http://localhost:3100/api/user/register', user);
+            if(loggin.status == 200)
+            {
+              this.myUseToast('Register Success', 'success');
+              this.panelType = "login";
+            }
           }
         }
      },

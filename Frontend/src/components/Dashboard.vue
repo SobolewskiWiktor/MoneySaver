@@ -637,9 +637,13 @@ import "@/CSS/Dashboard.css";
 import { file, whileStatement } from "@babel/types";
 import { IncomingMessage } from "http";
 import { ref } from 'vue'
+import axios from 'axios';
 
 export default {
     name: 'Vue Chart',
+    created() {
+    this.verifyToken();
+    },
     data () {
       return {
         test:10,
@@ -747,7 +751,24 @@ export default {
         closeSettingOption()
         {
             this.settingOpton = 'none';
+        },
+        verifyToken() {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            this.$router.push('/'); // Przekierowanie jeśli brak tokena
+        } else {
+            // Weryfikacja tokena
+            axios.post('http://localhost:3100/api/user/veryfiToken', { token })
+            .then(response => {
+                console.log("zalogował się: "+ response.data.login)
+            })
+            .catch(error => {
+                console.error('Błąd weryfikacji tokena:', error);
+                this.$router.push('/'); // Przekierowanie w przypadku nieprawidłowego tokenu
+            });
         }
+    }
 
     }
 }

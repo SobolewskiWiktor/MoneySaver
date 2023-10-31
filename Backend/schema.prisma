@@ -27,10 +27,12 @@ model operations {
 
 model users {
   login    String @id @default("0") @db.VarChar(50)
-  passowrd String @default("0") @db.VarChar(50)
+  id       Int    @default(autoincrement())
+  passowrd String @default("0") @db.VarChar(5000)
   name     String @default("0") @db.VarChar(50)
   surname  String @default("0") @db.VarChar(50)
   mail     String @default("0") @db.VarChar(50)
 
   @@index([login], map: "login")
+  @@index([id], map: "id")
 }

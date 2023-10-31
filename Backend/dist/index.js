@@ -12,7 +12,11 @@ const port = process.env.PORT;
 const prisma = new client_1.PrismaClient();
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
+app.use((require("cors"))());
 app.use("/api/example", require("./routes/example"));
+app.use("/api/user", require("./routes/users"));
+app.use("/api/banks", require("./routes/banks"));
+app.use("/api/operations", require("./routes/operations"));
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
