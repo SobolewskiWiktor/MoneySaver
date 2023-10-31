@@ -56,10 +56,8 @@ router.post("/veryfiToken", async (req,res) => {
         const secretKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
         jwt.verify(token, secretKey, (err, decoded) => {
             if (err) {
-              console.log('Weryfikacja nie powiodła się:', err);
               res.status(500).json(err)
             } else {
-              console.log('Token zweryfikowany. Zdekodowane dane:', decoded);
               res.status(200).json(decoded)
             }
         })
@@ -85,7 +83,6 @@ router.post("/register", async (req,res) => {
                         mail: String(req.body.mail)
                     }
                 })
-            console.log(hash);
             });
           });
          
