@@ -128,7 +128,7 @@
                             </v-dialog>
                  </div>
                  <div id="buttonMenuContainer">
-                    <v-btn
+                    <v-btn @click.prevent="logout()"
                     class="text-cyan-lighten-2"
                     variant="tonal"
                     >
@@ -768,7 +768,12 @@ export default {
                 this.$router.push('/'); // Przekierowanie w przypadku nieprawidłowego tokenu
             });
         }
-    }
+        },
+      logout()
+      {
+        localStorage.clear();
+        this.$router.push('/');
+      }
 
     }
 }
