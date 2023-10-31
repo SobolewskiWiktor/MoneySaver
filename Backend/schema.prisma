@@ -21,8 +21,8 @@ model operations {
   type    String    @default("0") @db.VarChar(50)
   ammount Int       @default(0)
   date    DateTime? @db.Date
-  userID  String    @default("0") @db.VarChar(50)
-  bankID  String    @default("0") @db.VarChar(50)
+  userID  Int       @default(0)
+  bankID  Int       @default(0)
 }
 
 model users {
