@@ -22,8 +22,8 @@ router.get("/:userId", (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const getter = yield prisma.banks.findMany({
             where: {
-                userID: Number(req.params.userId)
-            }
+                userID: Number(req.params.userId),
+            },
         });
         res.status(200).json(getter);
     }
@@ -36,8 +36,8 @@ router.get("/:userId/:status", (req, res) => __awaiter(void 0, void 0, void 0, f
         const getter = yield prisma.banks.findMany({
             where: {
                 userID: Number(req.params.userId),
-                status: String(req.params.status)
-            }
+                status: String(req.params.status),
+            },
         });
         res.status(200).json(getter);
     }
@@ -58,9 +58,9 @@ router.post("/update/:bankId", (req, res) => __awaiter(void 0, void 0, void 0, f
     try {
         const updater = yield prisma.banks.update({
             where: {
-                id: Number(req.params.bankId)
+                id: Number(req.params.bankId),
             },
-            data: req.body
+            data: req.body,
         });
         res.status(200).json(updater);
     }

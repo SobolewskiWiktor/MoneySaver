@@ -59,21 +59,36 @@ router.post("/register", async (req, res) => {
   try {
     const password = req.body.password;
     const saltRounds = 10;
-    bcrypt.genSalt(saltRounds, async (err, salt) => {
-      bcrypt.hash(password, salt, async (err, hash) => {
-        const adder = await prisma.users.create({
-          data: {
-            login: String(req.body.login),
-            passowrd: String(hash),
-            name: String(req.body.name),
-            surname: String(req.body.surname),
-            mail: String(req.body.mail),
-          },
+    
+    const checklogin = await prisma.users.findUnique({
+      where:
+      {
+        login: String(req.body.login);
+      }
+    })
+
+    if(checklogin == null)
+    {
+      bcrypt.genSalt(saltRounds, async (err, salt) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
+          const adder = await prisma.users.create({
+            data: {
+              login: String(req.body.login),
+              passowrd: String(hash),
+              name: String(req.body.name),
+              surname: String(req.body.surname),
+              mail: String(req.body.mail),
+            },
+          });
         });
       });
-    });
-
-    res.status(200).json("done");
+  
+      res.status(200).json("done")
+    }
+    else
+    {
+      res.status(200).json({registerStatus:"Accout exist"})
+    }
   } catch (err) {
     res.status(500).json(err);
   }

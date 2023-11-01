@@ -23,8 +23,8 @@ router.get("/:userid/:bankid", (req, res) => __awaiter(void 0, void 0, void 0, f
         const getter = yield prisma.operations.findMany({
             where: {
                 userID: Number(req.params.userid),
-                bankID: Number(req.params.bankid)
-            }
+                bankID: Number(req.params.bankid),
+            },
         });
         res.status(200).json(getter);
     }
@@ -35,7 +35,7 @@ router.get("/:userid/:bankid", (req, res) => __awaiter(void 0, void 0, void 0, f
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let creater = yield prisma.operations.create({
-            data: req.body
+            data: req.body,
         });
         res.status(200).json(creater);
     }

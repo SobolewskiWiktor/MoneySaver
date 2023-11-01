@@ -210,8 +210,21 @@ export default {
             user
           );
           if (loggin.status == 200) {
-            this.myUseToast("Register Success", "success");
-            this.panelType = "login";
+            if(loggin.data.registerStatus == "Accout exist")
+            {
+              this.myUseToast("Login has been taken", "error");
+            }
+            else
+            {
+              this.myUseToast("Register Success", "success");
+              this.registerName = '',
+              this.registerSurname = '',
+              this.registerLogin = '',
+              this.registerPassword = '',
+              this.registerMail = '',
+              this.registerPasswordConfirm = '';
+              this.panelType = "login";
+            }
           }
         }
       }
