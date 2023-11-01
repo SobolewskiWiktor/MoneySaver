@@ -21,6 +21,23 @@ router.get("/:userId", async (req, res) => {
   }
 });
 
+router.get("/getOne/:bankId",async (req,res)=> {
+  try{
+    const getter = await prisma.banks.findUnique({
+      where:
+      {
+        id: Number(req.params.bankId)
+      }
+    })
+
+    res.status(200).json(getter)
+  }
+  catch(err)
+  {
+    res.status(500).json(err)
+  }
+})
+
 router.get("/:userId/:status", async (req, res) => {
   try {
     const getter = await prisma.banks.findMany({
@@ -38,10 +55,18 @@ router.get("/:userId/:status", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const creater = await prisma.banks.create({ data: req.body });
+    const creater = await prisma.banks.create({ data: 
+     {
+       name: String(req.body.name),
+       goal: Number(req.body.goal),
+       description: String(req.body.description),
+       userID: Number(req.body.userID),
+     } 
+    });
 
     res.status(200).json(creater);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });

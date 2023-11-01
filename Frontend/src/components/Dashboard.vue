@@ -29,6 +29,7 @@
                       <div id="settingsDetailsBankLeft">
                         <v-text-field
                           :counter="10"
+                          v-model = "newBank.name"
                           label="Name"
                           required
                           hide-details
@@ -37,18 +38,20 @@
                       <div id="settingsDetailsBankRight">
                         <v-text-field
                           :counter="10"
+                          v-model= "newBank.goal"
                           label="Ammount"
                           required
                           hide-details
                         ></v-text-field>
                       </div>
                     </div>
-                    <v-textarea class="mt-6" label="Description"></v-textarea>
+                    <v-textarea class="mt-6" label="Description" v-model="newBank.description"></v-textarea>
                     <v-btn
                       type="submit"
                       block
                       class="text-light-green-accent-3"
                       variant="tonal"
+                      @click.prevent="addNewBan()"
                       >Submit</v-btn
                     >
                   </v-card-text>
@@ -335,12 +338,12 @@
         </div>
         <div id="dashboardContentDeatilsSavingListBox">
           <div id="listscroll">
-            <div id="dashboardContentDetailsSavingListRow">
+            <div id="dashboardContentDetailsSavingListRow" v-for="(item, index) in banks" :key="index">
               <div id="dashboardContentDetailsSavingListRowImage">
                 <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
               </div>
               <div id="dashboardContentDetailsSavingListRowText">
-                <h1>Example1</h1>
+                <h1>{{item.name}}</h1>
               </div>
               <div id="dashboardContentDetailsSavingListRowMoney">
                 <div id="rowMoneyIcon">
@@ -349,82 +352,10 @@
                     src="../Images/dollar-symbol.png"
                   />
                 </div>
-                <div id="rowMoneyAmmout"><h1>200 000</h1></div>
+                <div id="rowMoneyAmmout"><h1>{{item.goal}}</h1></div>
               </div>
             </div>
-
-            <div id="dashboardContentDetailsSavingListRow">
-              <div id="dashboardContentDetailsSavingListRowImage">
-                <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
-              </div>
-              <div id="dashboardContentDetailsSavingListRowText">
-                <h1>Example1</h1>
-              </div>
-              <div id="dashboardContentDetailsSavingListRowMoney">
-                <div id="rowMoneyIcon">
-                  <img
-                    id="rowMoneyIconImage"
-                    src="../Images/dollar-symbol.png"
-                  />
-                </div>
-                <div id="rowMoneyAmmout"><h1>200 000</h1></div>
-              </div>
             </div>
-
-            <div id="dashboardContentDetailsSavingListRow">
-              <div id="dashboardContentDetailsSavingListRowImage">
-                <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
-              </div>
-              <div id="dashboardContentDetailsSavingListRowText">
-                <h1>Example1</h1>
-              </div>
-              <div id="dashboardContentDetailsSavingListRowMoney">
-                <div id="rowMoneyIcon">
-                  <img
-                    id="rowMoneyIconImage"
-                    src="../Images/dollar-symbol.png"
-                  />
-                </div>
-                <div id="rowMoneyAmmout"><h1>200 000</h1></div>
-              </div>
-            </div>
-
-            <div id="dashboardContentDetailsSavingListRow">
-              <div id="dashboardContentDetailsSavingListRowImage">
-                <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
-              </div>
-              <div id="dashboardContentDetailsSavingListRowText">
-                <h1>Example1</h1>
-              </div>
-              <div id="dashboardContentDetailsSavingListRowMoney">
-                <div id="rowMoneyIcon">
-                  <img
-                    id="rowMoneyIconImage"
-                    src="../Images/dollar-symbol.png"
-                  />
-                </div>
-                <div id="rowMoneyAmmout"><h1>200 000</h1></div>
-              </div>
-            </div>
-
-            <div id="dashboardContentDetailsSavingListRow">
-              <div id="dashboardContentDetailsSavingListRowImage">
-                <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
-              </div>
-              <div id="dashboardContentDetailsSavingListRowText">
-                <h1>Example1</h1>
-              </div>
-              <div id="dashboardContentDetailsSavingListRowMoney">
-                <div id="rowMoneyIcon">
-                  <img
-                    id="rowMoneyIconImage"
-                    src="../Images/dollar-symbol.png"
-                  />
-                </div>
-                <div id="rowMoneyAmmout"><h1>200 000</h1></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div id="dashboardContentDetailsSavingDetails">
@@ -715,18 +646,53 @@
 </template>
 <script lang="ts">
 import "@/CSS/Dashboard.css";
-import { file, whileStatement } from "@babel/types";
+import { file, identifier, whileStatement } from "@babel/types";
+import { useToast } from "vue-toastification";
 import { IncomingMessage } from "http";
 import { ref } from "vue";
 import axios from "axios";
 
+const toast = useToast();
 export default {
   name: "Vue Chart",
-  created() {
-    this.verifyToken();
+  async created() {
+    await this.verifyToken();
+    await this.getUserData();
+    await this.getBankData();
   },
   data() {
     return {
+      toastService: toast,
+      user: {
+        name: '',
+        surname: '',
+        mail: '',
+        login: '',
+        password: '',
+        id: '',
+      },
+
+      banks:[{}],
+      newBank:
+      {
+        name: '',
+        goal: '',
+        description: '',
+        status: 'current',
+        userID: '',
+      },
+      bank:{
+        id: 0,
+        name: '',
+        goal: '',
+        description: '',
+        status: '',
+        userID: '',
+      },
+
+      operations:[{}],
+
+
       test: 10,
       items: [{ title: "All" }, { title: "Current" }, { title: "Closed" }],
       currentDisplayOptionDetailsSaving: "All",
@@ -736,7 +702,7 @@ export default {
       show1: false,
       show2: true,
       password: "Password",
-
+      
       chartOptions: {
         chart: {
           id: "vuechart-example",
@@ -851,17 +817,17 @@ export default {
     closeSettingOption() {
       this.settingOpton = "none";
     },
-    verifyToken() {
+    async verifyToken() {
       const token = localStorage.getItem("token");
 
       if (!token) {
         this.$router.push("/"); // Przekierowanie jeśli brak tokena
       } else {
         // Weryfikacja tokena
-        axios
+        await axios
           .post("http://localhost:3100/api/user/veryfiToken", { token })
           .then((response) => {
-            console.log("zalogował się: " + response.data.login);
+            this.user.login = response.data.login;
           })
           .catch((error) => {
             console.error("Błąd weryfikacji tokena:", error);
@@ -872,6 +838,108 @@ export default {
     logout() {
       localStorage.clear();
       this.$router.push("/");
+      this.myUseToast("logout sucesfully", "success")
+    },
+    async getUserData()
+    {
+       let getter = await axios.get(`http://localhost:3100/api/user/getdata/${this.user.login}`)
+       this.user.id = getter.data.id;
+       this.user.name = getter.data.name;
+       this.user.surname = getter.data.surname;
+       this.user.mail = getter.data.mail;
+    },
+    async getBankData()
+    {
+      let getter = await axios.get(`http://localhost:3100/api/banks/${this.user.id}`)
+      getter.data.forEach((elem, index)=> {
+           this.banks[index] = elem;
+      });
+    },
+    async getBankDetails(bankID:Number)
+    {
+       let getter = await axios.get(`http://localhost:3100/api/banks/getOne/${bankID}`);
+
+       this.bank.id = getter.data.id;
+       this.bank.name = getter.data.name;
+       this.bank.goal = getter.data.goal;
+       this.bank.description = getter.data.description;
+       this.bank.status = getter.data.status;
+       this.bank.userID = getter.data.userID;
+    },
+    async addNewBan()
+    {
+         this.newBank.userID = this.user.id
+
+         let adder = await axios.post(`http://localhost:3100/api/banks/create`, this.newBank);
+         if(adder.status == 200)
+         {
+          this.myUseToast("New Bank Created", "success");
+          this.getBankData();
+          this.newBank.name = '';
+          this.newBank.goal = '';
+          this.newBank.description = '';
+         }
+         else
+         {
+          this.myUseToast("Sorry we can't do that", "error");
+         }
+    },
+    async getOperations(bankID:Number)
+    {
+       let getter = await axios.get(`http://localhost:3100/api/operations/${bankID}/${this.user.id}`)
+       
+       getter.data.forEach((elem, index) => {
+            this.operations[index] = elem; 
+       })
+
+    },
+
+  myUseToast(message: string, type: string) {
+      if (type == "success") {
+        this.toastService.success(message, {
+          timeout: 5000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: "button",
+          icon: true,
+          rtl: false,
+        });
+      }
+      if (type == "error") {
+        this.toastService.error(message, {
+          timeout: 5000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: "button",
+          icon: true,
+          rtl: false,
+        });
+      }
+      if (type == "warning") {
+        this.toastService.warning(message, {
+          timeout: 5000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: "button",
+          icon: true,
+          rtl: false,
+        });
+      }
     },
   },
 };

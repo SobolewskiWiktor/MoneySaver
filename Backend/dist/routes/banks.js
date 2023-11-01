@@ -31,6 +31,19 @@ router.get("/:userId", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json(err);
     }
 }));
+router.get("/getOne/:bankId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const getter = yield prisma.banks.findUnique({
+            where: {
+                id: Number(req.params.bankId)
+            }
+        });
+        res.status(200).json(getter);
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+}));
 router.get("/:userId/:status", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const getter = yield prisma.banks.findMany({
@@ -47,10 +60,17 @@ router.get("/:userId/:status", (req, res) => __awaiter(void 0, void 0, void 0, f
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const creater = yield prisma.banks.create({ data: req.body });
+        const creater = yield prisma.banks.create({ data: {
+                name: String(req.body.name),
+                goal: Number(req.body.goal),
+                description: String(req.body.description),
+                userID: Number(req.body.userID),
+            }
+        });
         res.status(200).json(creater);
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 }));

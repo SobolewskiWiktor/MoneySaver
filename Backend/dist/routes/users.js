@@ -70,7 +70,7 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
         const saltRounds = 10;
         const checklogin = yield prisma.users.findUnique({
             where: {
-                login: String(req.body.login)
+                login: String(req.body.login),
             }
         });
         if (checklogin == null) {
@@ -121,7 +121,7 @@ router.get("/getdata/:login", (req, res) => __awaiter(void 0, void 0, void 0, fu
                 name: true,
                 surname: true,
                 mail: true,
-                login: true,
+                id: true,
             },
         });
         res.status(200).json(getter);

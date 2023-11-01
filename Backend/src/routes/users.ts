@@ -63,7 +63,7 @@ router.post("/register", async (req, res) => {
     const checklogin = await prisma.users.findUnique({
       where:
       {
-        login: String(req.body.login);
+        login: String(req.body.login),
       }
     })
 
@@ -119,7 +119,7 @@ router.get("/getdata/:login", async (req, res) => {
         name: true,
         surname: true,
         mail: true,
-        login: true,
+        id: true,
       },
     });
 
