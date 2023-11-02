@@ -29,7 +29,7 @@
                       <div id="settingsDetailsBankLeft">
                         <v-text-field
                           :counter="10"
-                          v-model = "newBank.name"
+                          v-model="newBank.name"
                           label="Name"
                           required
                           hide-details
@@ -38,14 +38,18 @@
                       <div id="settingsDetailsBankRight">
                         <v-text-field
                           :counter="10"
-                          v-model= "newBank.goal"
+                          v-model="newBank.goal"
                           label="Ammount"
                           required
                           hide-details
                         ></v-text-field>
                       </div>
                     </div>
-                    <v-textarea class="mt-6" label="Description" v-model="newBank.description"></v-textarea>
+                    <v-textarea
+                      class="mt-6"
+                      label="Description"
+                      v-model="newBank.description"
+                    ></v-textarea>
                     <v-btn
                       type="submit"
                       block
@@ -338,12 +342,17 @@
         </div>
         <div id="dashboardContentDeatilsSavingListBox">
           <div id="listscroll">
-            <div id="dashboardContentDetailsSavingListRow" v-for="(item, index) in banks" :key="index" @click.prevent="showBankDetails(item.name)">
+            <div
+              id="dashboardContentDetailsSavingListRow"
+              v-for="(item, index) in banks"
+              :key="index"
+              @click.prevent="showBankDetails(item.name)"
+            >
               <div id="dashboardContentDetailsSavingListRowImage">
                 <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
               </div>
               <div id="dashboardContentDetailsSavingListRowText">
-                <h1>{{item.name}}</h1>
+                <h1>{{ item.name }}</h1>
               </div>
               <div id="dashboardContentDetailsSavingListRowMoney">
                 <div id="rowMoneyIcon">
@@ -352,10 +361,12 @@
                     src="../Images/dollar-symbol.png"
                   />
                 </div>
-                <div id="rowMoneyAmmout"><h1>{{item.goal}}</h1></div>
+                <div id="rowMoneyAmmout">
+                  <h1>{{ item.goal }}</h1>
+                </div>
               </div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
       <div id="dashboardContentDetailsSavingDetails">
@@ -540,7 +551,7 @@
                 <div id="progressBarTextStartIcon">
                   <img id="startIcon" src="../Images/route.png" />
                 </div>
-                <div id="progressBarTextStopAmmount">{{bank.goal}}</div>
+                <div id="progressBarTextStopAmmount">{{ bank.goal }}</div>
               </div>
             </div>
             <v-progress-linear
@@ -553,19 +564,34 @@
         <div id="dashboardContentDetailsSavingDetailsThirdRow">
           <div id="savingDetailsThirdRowLeft">
             <div id="thirdRowLeftScrollBoxList">
-              <div v-for="(item, index) in operations" :key="index" :class="{
-                  'thirdRowLeftScrollListRowDeposit': operations[index].type === 'deposit',
-                  'thirdRowLeftScrollListRowWithdraw': operations[index].type === 'withdraw'
-                }">
-                  <div id="rowDepositImage">
-                    <img :class="operations[index].type === 'deposit' ? 'depositIcon' : 'WithdrawIcon'"
-                         :src="operations[index].type === 'deposit' ? 'src/Images/deposit.png' : 'src/Images/money-withdrawal.png'" />
-                  </div>
-                  <div id="rowDepositAmmount">
-                    <h1>{{ operations[index].ammount }}</h1>
-                  </div>
+              <div
+                v-for="(item, index) in operations"
+                :key="index"
+                :class="{
+                  thirdRowLeftScrollListRowDeposit:
+                    operations[index].type === 'deposit',
+                  thirdRowLeftScrollListRowWithdraw:
+                    operations[index].type === 'withdraw',
+                }"
+              >
+                <div id="rowDepositImage">
+                  <img
+                    :class="
+                      operations[index].type === 'deposit'
+                        ? 'depositIcon'
+                        : 'WithdrawIcon'
+                    "
+                    :src="
+                      operations[index].type === 'deposit'
+                        ? 'src/Images/deposit.png'
+                        : 'src/Images/money-withdrawal.png'
+                    "
+                  />
                 </div>
-
+                <div id="rowDepositAmmount">
+                  <h1>{{ operations[index].ammount }}</h1>
+                </div>
+              </div>
             </div>
           </div>
           <div id="savingDetailsThirdRowRight">
@@ -592,7 +618,12 @@
 </template>
 <script lang="ts">
 import "@/CSS/Dashboard.css";
-import { assertExportSpecifier, file, identifier, whileStatement } from "@babel/types";
+import {
+  assertExportSpecifier,
+  file,
+  identifier,
+  whileStatement,
+} from "@babel/types";
 import { useToast } from "vue-toastification";
 import { IncomingMessage } from "http";
 import { ref } from "vue";
@@ -610,34 +641,33 @@ export default {
     return {
       toastService: toast,
       user: {
-        name: '',
-        surname: '',
-        mail: '',
-        login: '',
-        password: '',
-        id: '',
+        name: "",
+        surname: "",
+        mail: "",
+        login: "",
+        password: "",
+        id: "",
       },
 
-      banks:[{}],
-      newBank:
-      {
-        name: '',
-        goal: '',
-        description: '',
-        status: 'current',
-        userID: '',
+      banks: [{}],
+      newBank: {
+        name: "",
+        goal: "",
+        description: "",
+        status: "current",
+        userID: "",
       },
-      bank:{
+      bank: {
         id: 0,
-        name: '',
-        goal: '',
-        description: '',
-        status: '',
-        userID: '',
+        name: "",
+        goal: "",
+        description: "",
+        status: "",
+        userID: "",
       },
 
-      operations:[{}],
-      depositedMoney : 0,
+      operations: [{}],
+      depositedMoney: 0,
       toDepoistMoney: 0,
 
       ProgressBarDetails: 0,
@@ -651,7 +681,7 @@ export default {
       show1: false,
       show2: true,
       password: "Password",
-      
+
       chartOptions: {
         chart: {
           id: "vuechart-example",
@@ -787,155 +817,148 @@ export default {
     logout() {
       localStorage.clear();
       this.$router.push("/");
-      this.myUseToast("logout sucesfully", "success")
+      this.myUseToast("logout sucesfully", "success");
     },
-    async getUserData()
-    {
-       let getter = await axios.get(`http://localhost:3100/api/user/getdata/${this.user.login}`)
-       this.user.id = getter.data.id;
-       this.user.name = getter.data.name;
-       this.user.surname = getter.data.surname;
-       this.user.mail = getter.data.mail;
+    async getUserData() {
+      let getter = await axios.get(
+        `http://localhost:3100/api/user/getdata/${this.user.login}`
+      );
+      this.user.id = getter.data.id;
+      this.user.name = getter.data.name;
+      this.user.surname = getter.data.surname;
+      this.user.mail = getter.data.mail;
     },
-    async getBankData()
-    {
-      let getter = await axios.get(`http://localhost:3100/api/banks/${this.user.id}`)
-      getter.data.forEach((elem, index)=> {
-           this.banks[index] = elem;
+    async getBankData() {
+      let getter = await axios.get(
+        `http://localhost:3100/api/banks/${this.user.id}`
+      );
+      getter.data.forEach((elem, index) => {
+        this.banks[index] = elem;
       });
     },
-    async getBankDetails(bankID:Number)
-    {
-       let getter = await axios.get(`http://localhost:3100/api/banks/getOne/${bankID}`);
+    async getBankDetails(bankID: Number) {
+      let getter = await axios.get(
+        `http://localhost:3100/api/banks/getOne/${bankID}`
+      );
 
-       this.bank.id = getter.data.id;
-       this.bank.name = getter.data.name;
-       this.bank.goal = getter.data.goal;
-       this.bank.description = getter.data.description;
-       this.bank.status = getter.data.status;
-       this.bank.userID = getter.data.userID;
+      this.bank.id = getter.data.id;
+      this.bank.name = getter.data.name;
+      this.bank.goal = getter.data.goal;
+      this.bank.description = getter.data.description;
+      this.bank.status = getter.data.status;
+      this.bank.userID = getter.data.userID;
     },
-    async addNewBan()
-    {
-         this.newBank.userID = this.user.id
+    async addNewBan() {
+      this.newBank.userID = this.user.id;
 
-         let adder = await axios.post(`http://localhost:3100/api/banks/create`, this.newBank);
-         if(adder.status == 200)
-         {
-          this.myUseToast("New Bank Created", "success");
-          this.getBankData();
-          this.newBank.name = '';
-          this.newBank.goal = '';
-          this.newBank.description = '';
-         }
-         else
-         {
-          this.myUseToast("Sorry we can't do that", "error");
-         }
+      let adder = await axios.post(
+        `http://localhost:3100/api/banks/create`,
+        this.newBank
+      );
+      if (adder.status == 200) {
+        this.myUseToast("New Bank Created", "success");
+        this.getBankData();
+        this.newBank.name = "";
+        this.newBank.goal = "";
+        this.newBank.description = "";
+      } else {
+        this.myUseToast("Sorry we can't do that", "error");
+      }
     },
-    async getOperations(bankID:Number)
-    {
-       let getter = await axios.get(`http://localhost:3100/api/operations/${bankID}/${this.user.id}`)
-       
-       getter.data.forEach((elem, index) => {
-            this.operations[index] = elem; 
-       })
+    async getOperations(bankID: Number) {
+      let getter = await axios.get(
+        `http://localhost:3100/api/operations/${bankID}/${this.user.id}`
+      );
 
+      getter.data.forEach((elem, index) => {
+        this.operations[index] = elem;
+      });
     },
-    async showBankDetails(getName:string)
-    {
-        this.depositedMoney = 0; 
-        this.operations = [{}]; 
-        let showIndex = this.banks.findIndex((elem) => elem.name == getName);
-        this.bank.name = this.banks[showIndex].name
-        this.bank.description = this.banks[showIndex].description
-        this.bank.goal = this.banks[showIndex].goal
-        this.bank.id = this.banks[showIndex].id
-        this.bank.userID = this.banks[showIndex].userID
-        this.bank.status = this.banks[showIndex].status
-        await this.getOperations()
-        await this.getDeposited()
-        this.ProgressBarDetails = (this.depositedMoney * 100 ) / this.bank.goal;
-    },
-
-    async getOperations()
-    {
-       let getter = await axios.get(`http://localhost:3100/api/operations/${this.user.id}/${this.bank.id}`)
-       getter.data.forEach((elem,index) => {
-        this.operations[index] = elem
-       })
-    },
-
-    async getDeposited()
-    {
+    async showBankDetails(getName: string) {
       this.depositedMoney = 0;
-      if(this.operations[0].ammount >= 0)
-      {
-        let withdraw = 0; 
-       this.operations.forEach((elem, index) => {
-           if(elem.type == 'deposit')
-           {
+      this.operations = [{}];
+      let showIndex = this.banks.findIndex((elem) => elem.name == getName);
+      this.bank.name = this.banks[showIndex].name;
+      this.bank.description = this.banks[showIndex].description;
+      this.bank.goal = this.banks[showIndex].goal;
+      this.bank.id = this.banks[showIndex].id;
+      this.bank.userID = this.banks[showIndex].userID;
+      this.bank.status = this.banks[showIndex].status;
+      await this.getOperations();
+      await this.getDeposited();
+      this.ProgressBarDetails = (this.depositedMoney * 100) / this.bank.goal;
+    },
+
+    async getOperations() {
+      let getter = await axios.get(
+        `http://localhost:3100/api/operations/${this.user.id}/${this.bank.id}`
+      );
+      getter.data.forEach((elem, index) => {
+        this.operations[index] = elem;
+      });
+    },
+
+    async getDeposited() {
+      this.depositedMoney = 0;
+      if (this.operations[0].ammount >= 0) {
+        let withdraw = 0;
+        this.operations.forEach((elem, index) => {
+          if (elem.type == "deposit") {
             this.depositedMoney = this.depositedMoney + Number(elem.ammount);
-           }
-           else
-           {
+          } else {
             withdraw = withdraw + Number(elem.ammount);
-           }
-       })
-       this.depositedMoney = this.depositedMoney - withdraw
-      }
-      else
-      {
-        this.depositedMoney = 0; 
+          }
+        });
+        this.depositedMoney = this.depositedMoney - withdraw;
+      } else {
+        this.depositedMoney = 0;
       }
     },
 
-    async depositMoney()
-    {
-
-       let deposit = {
-           type: 'deposit',
-           ammount: Number(this.toDepoistMoney),
-           date: new Date().toISOString(),
-           userID: this.user.id,
-           bankID: this.bank.id,
-       }
-       const creater = await axios.post(`http://localhost:3100/api/operations/create`, deposit)
-       if(creater.status == 200)
-       {
-         this.myUseToast("Deposit successfully", "success")
-       }
-       console.log(creater.status)
-       await this.getOperations()
-       await this.getDeposited()
+    async depositMoney() {
+      let deposit = {
+        type: "deposit",
+        ammount: Number(this.toDepoistMoney),
+        date: new Date().toISOString(),
+        userID: this.user.id,
+        bankID: this.bank.id,
+      };
+      const creater = await axios.post(
+        `http://localhost:3100/api/operations/create`,
+        deposit
+      );
+      if (creater.status == 200) {
+        this.myUseToast("Deposit successfully", "success");
+      }
+      console.log(creater.status);
+      await this.getOperations();
+      await this.getDeposited();
     },
 
-    async withdrawMoney()
-    {
-      if(this.toDepoistMoney > this.depositedMoney)
-      {
-        this.myUseToast("Too little money", "error")
-      }
-      else
-      {
-       let deposit = {
-           type: 'withdraw',
-           ammount: Number(this.toDepoistMoney),
-           date: new Date().toISOString(),
-           userID: this.user.id,
-           bankID: this.bank.id,
-       }
-       const creater = await axios.post(`http://localhost:3100/api/operations/create`, deposit)
-       if(creater.status == 200)
-       {
-         this.myUseToast("Withdraw successfully", "success")
-       }
-       await this.getOperations()
-       await this.getDeposited()
+    async withdrawMoney() {
+      if (this.toDepoistMoney > this.depositedMoney) {
+        this.myUseToast("Too little money", "error");
+      } else {
+        let deposit = {
+          type: "withdraw",
+          ammount: Number(this.toDepoistMoney),
+          date: new Date().toISOString(),
+          userID: this.user.id,
+          bankID: this.bank.id,
+        };
+        const creater = await axios.post(
+          `http://localhost:3100/api/operations/create`,
+          deposit
+        );
+        if (creater.status == 200) {
+          this.myUseToast("Withdraw successfully", "success");
+        }
+        await this.getOperations();
+        await this.getDeposited();
       }
     },
 
-  myUseToast(message: string, type: string) {
+    myUseToast(message: string, type: string) {
       if (type == "success") {
         this.toastService.success(message, {
           timeout: 5000,
