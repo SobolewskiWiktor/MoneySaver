@@ -594,7 +594,7 @@ a
     overflow-y: scroll;
     scrollbar-width: none;
 }
-#thirdRowLeftScrollListRowDeposit
+.thirdRowLeftScrollListRowDeposit
 {
     margin-top: 10px;
     width: 90%;
@@ -615,7 +615,7 @@ a
     justify-content: center;
     align-items: center;
 }
-#depositIcon
+.depositIcon
 {
     width: 30px;
     height: 30px;
@@ -635,7 +635,7 @@ a
     font-weight: 400;
     margin-right: 20px;
 }
-#thirdRowLeftScrollListRowWithdraw
+.thirdRowLeftScrollListRowWithdraw
 {
     margin-top: 10px;
     width: 90%;
@@ -648,7 +648,7 @@ a
     border-radius: 15px;
     color: tomato;
 }
-#WithdrawIcon
+.WithdrawIcon
 {
     width: 30px;
     height: 30px;

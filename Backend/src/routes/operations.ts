@@ -30,6 +30,7 @@ router.post("/create", async (req, res) => {
 
     res.status(200).json(creater);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });

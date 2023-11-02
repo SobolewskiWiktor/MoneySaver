@@ -338,7 +338,7 @@
         </div>
         <div id="dashboardContentDeatilsSavingListBox">
           <div id="listscroll">
-            <div id="dashboardContentDetailsSavingListRow" v-for="(item, index) in banks" :key="index">
+            <div id="dashboardContentDetailsSavingListRow" v-for="(item, index) in banks" :key="index" @click.prevent="showBankDetails(item.name)">
               <div id="dashboardContentDetailsSavingListRowImage">
                 <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
               </div>
@@ -361,16 +361,10 @@
       <div id="dashboardContentDetailsSavingDetails">
         <div id="dashboardContentDetailsSavingDetailsFirstRow">
           <div id="SavingDetailsFirstRowTitle">
-            <h1>Exaple 1</h1>
+            <h1>{{ bank.name }}</h1>
           </div>
           <div id="savingDetailsFirstRowOptions">
             <div id="buttonDetailContainer">
-              <!--<v-btn
-                            class="text-light-blue-darken-3"
-                            variant="tonal"
-                            >
-                                Deposit
-                            </v-btn>-->
               <v-dialog width="500">
                 <template v-slot:activator="{ props }">
                   <v-btn
@@ -390,6 +384,7 @@
                   >
                     <v-card-text class="text-white">
                       <v-text-field
+                        v-model="toDepoistMoney"
                         :counter="10"
                         label="Ammount"
                         required
@@ -400,6 +395,7 @@
                         block
                         class="text-light-green-accent-3 mt-5"
                         variant="tonal"
+                        @click.prevent="depositMoney()"
                         >Submit</v-btn
                       >
                     </v-card-text>
@@ -438,6 +434,7 @@
                   >
                     <v-card-text class="text-white">
                       <v-text-field
+                        v-model="toDepoistMoney"
                         :counter="10"
                         label="Ammount"
                         required
@@ -448,6 +445,7 @@
                         block
                         class="text-light-green-accent-3 mt-5"
                         variant="tonal"
+                        @click.prevent="withdrawMoney()"
                         >Submit</v-btn
                       >
                     </v-card-text>
@@ -536,17 +534,17 @@
                 <div id="progressBarTextStartIcon">
                   <img id="startIcon" src="../Images/dollar-symbol.png" />
                 </div>
-                <div id="progressBarTextStartAmmount">120</div>
+                <div id="progressBarTextStartAmmount">{{ depositedMoney }}</div>
               </div>
               <div id="detalsSendRowProgressBarTextStop">
                 <div id="progressBarTextStartIcon">
                   <img id="startIcon" src="../Images/route.png" />
                 </div>
-                <div id="progressBarTextStopAmmount">5000</div>
+                <div id="progressBarTextStopAmmount">{{bank.goal}}</div>
               </div>
             </div>
             <v-progress-linear
-              v-model="test"
+              v-model="ProgressBarDetails"
               color="blue"
               height="25"
             ></v-progress-linear>
@@ -555,63 +553,19 @@
         <div id="dashboardContentDetailsSavingDetailsThirdRow">
           <div id="savingDetailsThirdRowLeft">
             <div id="thirdRowLeftScrollBoxList">
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
+              <div v-for="(item, index) in operations" :key="index" :class="{
+                  'thirdRowLeftScrollListRowDeposit': operations[index].type === 'deposit',
+                  'thirdRowLeftScrollListRowWithdraw': operations[index].type === 'withdraw'
+                }">
+                  <div id="rowDepositImage">
+                    <img :class="operations[index].type === 'deposit' ? 'depositIcon' : 'WithdrawIcon'"
+                         :src="operations[index].type === 'deposit' ? 'src/Images/deposit.png' : 'src/Images/money-withdrawal.png'" />
+                  </div>
+                  <div id="rowDepositAmmount">
+                    <h1>{{ operations[index].ammount }}</h1>
+                  </div>
                 </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
 
-              <div id="thirdRowLeftScrollListRowWithdraw">
-                <div id="rowDepositImage">
-                  <img id="WithdrawIcon" src="../Images/money-withdrawal.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
-              <div id="thirdRowLeftScrollListRowDeposit">
-                <div id="rowDepositImage">
-                  <img id="depositIcon" src="../Images/deposit.png" />
-                </div>
-                <div id="rowDepositAmmount">
-                  <h1>400</h1>
-                </div>
-              </div>
             </div>
           </div>
           <div id="savingDetailsThirdRowRight">
@@ -624,15 +578,7 @@
             <div id="rowRightDescription">
               <div id="rowRightDescriptionbar"></div>
               <div id="rowRightDescriptionText">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-                quisquam nihil aliquid. Placeat sint laborum harum voluptatem
-                sunt omnis id dolore nobis dicta pariatur voluptatum voluptas
-                maiores eligendi deleniti illum magni enim in delectus
-                consectetur, dolorem aperiam. Qui, alias quaerat. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Est, vitae? Lorem,
-                ipsum dolor sit amet consectetur adipisicing elit. Aut fugiat
-                iste repudiandae? Molestiae quasi eos enim vel nihil ullam
-                ratione?
+                {{ bank.description }}
               </div>
             </div>
           </div>
@@ -646,7 +592,7 @@
 </template>
 <script lang="ts">
 import "@/CSS/Dashboard.css";
-import { file, identifier, whileStatement } from "@babel/types";
+import { assertExportSpecifier, file, identifier, whileStatement } from "@babel/types";
 import { useToast } from "vue-toastification";
 import { IncomingMessage } from "http";
 import { ref } from "vue";
@@ -691,7 +637,10 @@ export default {
       },
 
       operations:[{}],
+      depositedMoney : 0,
+      toDepoistMoney: 0,
 
+      ProgressBarDetails: 0,
 
       test: 10,
       items: [{ title: "All" }, { title: "Current" }, { title: "Closed" }],
@@ -892,6 +841,98 @@ export default {
             this.operations[index] = elem; 
        })
 
+    },
+    async showBankDetails(getName:string)
+    {
+        this.depositedMoney = 0; 
+        this.operations = [{}]; 
+        let showIndex = this.banks.findIndex((elem) => elem.name == getName);
+        this.bank.name = this.banks[showIndex].name
+        this.bank.description = this.banks[showIndex].description
+        this.bank.goal = this.banks[showIndex].goal
+        this.bank.id = this.banks[showIndex].id
+        this.bank.userID = this.banks[showIndex].userID
+        this.bank.status = this.banks[showIndex].status
+        await this.getOperations()
+        await this.getDeposited()
+        this.ProgressBarDetails = (this.depositedMoney * 100 ) / this.bank.goal;
+    },
+
+    async getOperations()
+    {
+       let getter = await axios.get(`http://localhost:3100/api/operations/${this.user.id}/${this.bank.id}`)
+       getter.data.forEach((elem,index) => {
+        this.operations[index] = elem
+       })
+    },
+
+    async getDeposited()
+    {
+      this.depositedMoney = 0;
+      if(this.operations[0].ammount >= 0)
+      {
+        let withdraw = 0; 
+       this.operations.forEach((elem, index) => {
+           if(elem.type == 'deposit')
+           {
+            this.depositedMoney = this.depositedMoney + Number(elem.ammount);
+           }
+           else
+           {
+            withdraw = withdraw + Number(elem.ammount);
+           }
+       })
+       this.depositedMoney = this.depositedMoney - withdraw
+      }
+      else
+      {
+        this.depositedMoney = 0; 
+      }
+    },
+
+    async depositMoney()
+    {
+
+       let deposit = {
+           type: 'deposit',
+           ammount: Number(this.toDepoistMoney),
+           date: new Date().toISOString(),
+           userID: this.user.id,
+           bankID: this.bank.id,
+       }
+       const creater = await axios.post(`http://localhost:3100/api/operations/create`, deposit)
+       if(creater.status == 200)
+       {
+         this.myUseToast("Deposit successfully", "success")
+       }
+       console.log(creater.status)
+       await this.getOperations()
+       await this.getDeposited()
+    },
+
+    async withdrawMoney()
+    {
+      if(this.toDepoistMoney > this.depositedMoney)
+      {
+        this.myUseToast("Too little money", "error")
+      }
+      else
+      {
+       let deposit = {
+           type: 'withdraw',
+           ammount: Number(this.toDepoistMoney),
+           date: new Date().toISOString(),
+           userID: this.user.id,
+           bankID: this.bank.id,
+       }
+       const creater = await axios.post(`http://localhost:3100/api/operations/create`, deposit)
+       if(creater.status == 200)
+       {
+         this.myUseToast("Withdraw successfully", "success")
+       }
+       await this.getOperations()
+       await this.getDeposited()
+      }
     },
 
   myUseToast(message: string, type: string) {

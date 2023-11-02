@@ -40,6 +40,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(200).json(creater);
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 }));
