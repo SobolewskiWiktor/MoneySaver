@@ -61,6 +61,7 @@ router.post("/create", async (req, res) => {
        goal: Number(req.body.goal),
        description: String(req.body.description),
        userID: Number(req.body.userID),
+       status: String(req.body.status)
      } 
     });
 

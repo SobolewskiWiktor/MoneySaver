@@ -177,7 +177,9 @@
                 <h1>All Piccy Banks</h1>
               </div>
               <div id="statisticFirstContentLeftBoxContent">
-                <div id="leftBoxContentNumber"><h1>8</h1></div>
+                <div id="leftBoxContentNumber">
+                  <h1>{{ allBanksCount }}</h1>
+                </div>
                 <div id="leftBoxContentImage">
                   <img id="piggybankIcon" src="@/Images/piggy-bank.png" />
                 </div>
@@ -628,6 +630,8 @@ import { useToast } from "vue-toastification";
 import { IncomingMessage } from "http";
 import { ref } from "vue";
 import axios from "axios";
+import { runInThisContext } from "vm";
+import { table } from "console";
 
 const toast = useToast();
 export default {
@@ -636,6 +640,9 @@ export default {
     await this.verifyToken();
     await this.getUserData();
     await this.getBankData();
+    await this.CalculateBanks();
+    await this.calculateAllSavingChart();
+    await this.calculateYearSanvingChart();
   },
   data() {
     return {
@@ -654,8 +661,8 @@ export default {
         name: "",
         goal: "",
         description: "",
-        status: "current",
         userID: "",
+        status: "current",
       },
       bank: {
         id: 0,
@@ -672,6 +679,9 @@ export default {
 
       ProgressBarDetails: 0,
 
+      allBanksCount: 1,
+      allClosedBanksCount: 1,
+      allBanksMean: [{}];
       test: 10,
       items: [{ title: "All" }, { title: "Current" }, { title: "Closed" }],
       currentDisplayOptionDetailsSaving: "All",
@@ -766,7 +776,7 @@ export default {
         {
           name: "Money",
           color: "#C16E36",
-          data: [30, 40, 45, 50, 49, 60, 70, 81],
+          data: [0],
         },
       ],
 
@@ -861,6 +871,7 @@ export default {
         this.newBank.name = "";
         this.newBank.goal = "";
         this.newBank.description = "";
+        this.CalculateBanks();
       } else {
         this.myUseToast("Sorry we can't do that", "error");
       }
@@ -930,9 +941,10 @@ export default {
       if (creater.status == 200) {
         this.myUseToast("Deposit successfully", "success");
       }
-      console.log(creater.status);
       await this.getOperations();
       await this.getDeposited();
+      await this.calculateAllSavingChart();
+      await this.calculateYearSanvingChart();
     },
 
     async withdrawMoney() {
@@ -955,7 +967,82 @@ export default {
         }
         await this.getOperations();
         await this.getDeposited();
+        await this.calculateAllSavingChart();
+        await this.calculateYearSanvingChart();
       }
+    },
+
+    async CalculateBanks() {
+      this.allBanksCount = 1;
+      this.allClosedBanksCount = 1;
+      this.banks.forEach((elem, index) => {
+        if (elem.status == "current") {
+          this.allBanksCount = this.allBanksCount + 1;
+        } else {
+          this.allClosedBanksCount = this.allClosedBanksCount + 1;
+        }
+      });
+    },
+
+    async calculateAllSavingChart() {
+      this.banks.forEach(async (elem, index) => {
+        let banksOperations = [{}];
+        let bankOperationCount = 0;
+        let getter = await axios.get(
+          `http://localhost:3100/api/operations/${this.user.id}/${elem.id}`
+        );
+        if (getter.data.length > 0) {
+          getter.data.forEach((elemSec, indexSec) => {
+            banksOperations[indexSec] = elemSec;
+          });
+          banksOperations.forEach((elemSec, indexSec) => {
+            bankOperationCount = bankOperationCount + Number(elemSec.ammount);
+          });
+          this.series[0].data[index] = Number(bankOperationCount);
+        } else {
+          this.series[0].data[index] = 0;
+        }
+      });
+    },
+
+    async calculateYearSanvingChart() {
+      let bankOperationCountMonth = new Array(12).fill(0); // Inicjalizacja tablicy dla 12 miesięcy
+
+      try {
+        for (const elem of this.banks) {
+          let banksOperations = [{}];
+          const getter = await axios.get(
+            `http://localhost:3100/api/operations/${this.user.id}/${elem.id}`
+          );
+
+          if (getter.data.length > 0) {
+            getter.data.forEach((elemSec, indexSec) => {
+              banksOperations[indexSec] = elemSec;
+            });
+            banksOperations.forEach((elemSec, indexSec) => {
+              const date = new Date(elemSec.date);
+              const month = date.getMonth();
+              const amount = Number(elemSec.ammount); // Poprawiony błąd w nazwie zmiennej
+              if (elemSec.type === "deposit") {
+                bankOperationCountMonth[month] += amount;
+              } else if (elemSec.type === "withdraw") {
+                bankOperationCountMonth[month] -= amount;
+              }
+            });
+          }
+        }
+        this.seriesYear[0].data = bankOperationCountMonth;
+      } catch (error) {
+        console.error("ERROR ", error);
+      }
+    },
+
+    async calculateBankMean()
+    {
+      banks.forEach((elem, index) => {
+       
+
+      })
     },
 
     myUseToast(message: string, type: string) {

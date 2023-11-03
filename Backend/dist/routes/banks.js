@@ -65,6 +65,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
                 goal: Number(req.body.goal),
                 description: String(req.body.description),
                 userID: Number(req.body.userID),
+                status: String(req.body.status)
             }
         });
         res.status(200).json(creater);
