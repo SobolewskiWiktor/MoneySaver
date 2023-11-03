@@ -1,5 +1,14 @@
 <template>
-  <div id="dashboardContent">
+  <div id="loading" v-if="isLoading == true">
+  
+    <v-progress-circular
+      v-if="isLoading"
+      :size="150"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+  <div id="dashboardContent" v-else>
     <div id="dashboardMenuBar">
       <div id="dashboardMenuBarLeftSide">
         <img id="appLogo" src="@/Images/Logo_white.png" />
@@ -239,77 +248,22 @@
           <h1>All savings</h1>
         </div>
         <div id="statisticThirdAllBox">
-          <div id="statisticThirdAllRow">
+          <div id="statisticThirdAllRow" v-for="(item, i) in allBanksMean" :key="i">
             <div id="statisticThirdRowNumber">
-              <h1>1</h1>
+              <h1>{{ i }}</h1>
             </div>
             <div id="statisticThirdRowProgressBar">
               <v-progress-linear
-                model-value="40"
-                buffer-value="60"
-                height="15px"
-                striped
-                color="indigo-lighten-1"
+                v-model="allBanksMean[i].mean"
+                color="cyan-lighten-2"
+                height="10"
               ></v-progress-linear>
             </div>
             <div id="statisticThirdRowBankName">
-              <h1>Example 1</h1>
+              <h1>{{allBanksMean[i].name}}</h1>
             </div>
           </div>
 
-          <div id="statisticThirdAllRow">
-            <div id="statisticThirdRowNumber">
-              <h1>2</h1>
-            </div>
-            <div id="statisticThirdRowProgressBar">
-              <v-progress-linear
-                model-value="40"
-                buffer-value="60"
-                height="15px"
-                striped
-                color="indigo-lighten-1"
-              ></v-progress-linear>
-            </div>
-            <div id="statisticThirdRowBankName">
-              <h1>Example 2</h1>
-            </div>
-          </div>
-
-          <div id="statisticThirdAllRow">
-            <div id="statisticThirdRowNumber">
-              <h1>3</h1>
-            </div>
-            <div id="statisticThirdRowProgressBar">
-              <v-progress-linear
-                model-value="40"
-                buffer-value="60"
-                height="15px"
-                striped
-                color="indigo-lighten-1"
-              ></v-progress-linear>
-            </div>
-            <div id="statisticThirdRowBankName">
-              <h1>Example 3</h1>
-            </div>
-          </div>
-
-          <div id="statisticThirdAllRow">
-            <div id="statisticThirdRowNumber">
-              <h1>4</h1>
-            </div>
-            <div id="statisticThirdRowProgressBar">
-              <v-progress-linear
-                model-value="40"
-                buffer-value="60"
-                height="15px"
-                striped
-                color="indigo-lighten-1"
-              ></v-progress-linear>
-            </div>
-            <div id="statisticThirdRowBankName">
-              <h1>Example 4</h1>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -643,10 +597,20 @@ export default {
     await this.CalculateBanks();
     await this.calculateAllSavingChart();
     await this.calculateYearSanvingChart();
+    await this.calculateBankMean();
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   },
   data() {
     return {
       toastService: toast,
+      isLoading: true,
+
+
+
       user: {
         name: "",
         surname: "",
@@ -681,7 +645,7 @@ export default {
 
       allBanksCount: 1,
       allClosedBanksCount: 1,
-      allBanksMean: [{}];
+      allBanksMean: [{}],
       test: 10,
       items: [{ title: "All" }, { title: "Current" }, { title: "Closed" }],
       currentDisplayOptionDetailsSaving: "All",
@@ -875,6 +839,9 @@ export default {
       } else {
         this.myUseToast("Sorry we can't do that", "error");
       }
+      await this.calculateBankMean();
+      await this.calculateAllSavingChart();
+        await this.calculateYearSanvingChart();
     },
     async getOperations(bankID: Number) {
       let getter = await axios.get(
@@ -945,6 +912,7 @@ export default {
       await this.getDeposited();
       await this.calculateAllSavingChart();
       await this.calculateYearSanvingChart();
+      await this.calculateBankMean();
     },
 
     async withdrawMoney() {
@@ -969,6 +937,7 @@ export default {
         await this.getDeposited();
         await this.calculateAllSavingChart();
         await this.calculateYearSanvingChart();
+        await this.calculateBankMean();
       }
     },
 
@@ -1037,12 +1006,36 @@ export default {
       }
     },
 
-    async calculateBankMean()
-    {
-      banks.forEach((elem, index) => {
-       
+    async calculateBankMean() {
+      for (const [index, elem] of this.banks.entries()) {
+        let operations = [{}];
+        let mean = 0;
+        let deposit = 0;
+        let withdraw = 0;
+        let deposited = 0;
+        let goal = elem.goal;
+        const getter = await axios.get(
+          `http://localhost:3100/api/operations/${this.user.id}/${elem.id}`
+        );
 
-      })
+        getter.data.forEach((elemSec, indexSec) => {
+          if (elemSec.type === "deposit") {
+            deposit = deposit + Number(elemSec.ammount);
+          } else {
+            withdraw = withdraw + Number(elemSec.ammount);
+          }
+        });
+
+        deposited = deposit - withdraw;
+        mean = (deposited * 100) / goal;
+        let bankMean = {
+          name: elem.name,
+          goal: elem.goal,
+          mean: mean,
+        };
+
+        this.allBanksMean[index] = bankMean;
+      }
     },
 
     myUseToast(message: string, type: string) {
