@@ -598,6 +598,7 @@ export default {
     await this.calculateAllSavingChart();
     await this.calculateYearSanvingChart();
     await this.calculateBankMean();
+    await this.detailsAfterLogin();
   },
   mounted() {
     setTimeout(() => {
@@ -841,7 +842,7 @@ export default {
       }
       await this.calculateBankMean();
       await this.calculateAllSavingChart();
-        await this.calculateYearSanvingChart();
+      await this.calculateYearSanvingChart();
     },
     async getOperations(bankID: Number) {
       let getter = await axios.get(
@@ -1036,6 +1037,21 @@ export default {
 
         this.allBanksMean[index] = bankMean;
       }
+    },
+
+    async detailsAfterLogin()
+    {
+      this.depositedMoney = 0;
+      this.operations = [{}];
+      this.bank.name = this.banks[0].name;
+      this.bank.description = this.banks[0].description;
+      this.bank.goal = this.banks[0].goal;
+      this.bank.id = this.banks[0].id;
+      this.bank.userID = this.banks[0].userID;
+      this.bank.status = this.banks[0].status;
+      await this.getOperations();
+      await this.getDeposited();
+      this.ProgressBarDetails = (this.depositedMoney * 100) / this.bank.goal;
     },
 
     myUseToast(message: string, type: string) {
