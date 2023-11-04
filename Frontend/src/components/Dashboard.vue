@@ -21,14 +21,14 @@
                   class="text-cyan-lighten-2"
                   variant="tonal"
                   v-bind="props"
-                  text="Add Saving"
+                  text="Dodaj Cel"
                 >
                 </v-btn>
               </template>
 
               <template v-slot:default="{ isActive }">
                 <v-card
-                  title="New"
+                  title="Nowy"
                   color="grey-darken-3"
                   class="text-green-accent-2"
                 >
@@ -38,7 +38,7 @@
                         <v-text-field
                           :counter="10"
                           v-model="newBank.name"
-                          label="Name"
+                          label="Nazwa"
                           required
                           hide-details
                         ></v-text-field>
@@ -47,7 +47,7 @@
                         <v-text-field
                           :counter="10"
                           v-model="newBank.goal"
-                          label="Ammount"
+                          label="Kwota"
                           required
                           hide-details
                         ></v-text-field>
@@ -55,7 +55,7 @@
                     </div>
                     <v-textarea
                       class="mt-6"
-                      label="Description"
+                      label="Opis"
                       v-model="newBank.description"
                     ></v-textarea>
                     <v-btn
@@ -64,7 +64,7 @@
                       class="text-light-green-accent-3"
                       variant="tonal"
                       @click.prevent="addNewBan()"
-                      >Submit</v-btn
+                      >Zatwierdź</v-btn
                     >
                   </v-card-text>
 
@@ -74,7 +74,7 @@
                     <v-btn
                       class="text-light-blue-darken-3"
                       variant="tonal"
-                      text="Close"
+                      text="Zakmnij"
                       @click="isActive.value = false"
                     ></v-btn>
                   </v-card-actions>
@@ -82,8 +82,8 @@
               </template>
             </v-dialog>
           </div>
+          <!-- 
           <div id="buttonMenuContainer">
-            <!-- 
             <v-dialog width="500">
               <template v-slot:activator="{ props }">
                 <v-btn
@@ -186,14 +186,15 @@
                 </v-card> 
               </template>
             </v-dialog>
-          --></div>
+        </div>
+        -->
           <div id="buttonMenuContainer">
             <v-btn
               @click.prevent="logout()"
               class="text-cyan-lighten-2"
               variant="tonal"
             >
-              Logout
+              Wyloguj
             </v-btn>
           </div>
         </div>
@@ -203,13 +204,13 @@
     <div id="dashboardContentStatistics">
       <div id="dashboardContentStatisticsFirstSection">
         <div id="StatisticFirstTitle">
-          <h1>Genneral</h1>
+          <h1>Ogólne</h1>
         </div>
         <div id="StatisticFirstContent">
           <div id="StatisticFirstContentLeft">
             <div id="statisticFirstContentLeftBox">
               <div id="statisticFirstContentLeftBoxTitle">
-                <h1>All Piccy Banks</h1>
+                <h1>Wszystkie cele</h1>
               </div>
               <div id="statisticFirstContentLeftBoxContent">
                 <div id="leftBoxContentNumber">
@@ -222,7 +223,7 @@
             </div>
             <div id="statisticFirstContentLeftBox">
               <div id="statisticFirstContentLeftBoxTitle">
-                <h1>Closed Banks</h1>
+                <h1>Zamknięte Cele</h1>
               </div>
               <div id="statisticFirstContentLeftBoxContent">
                 <div id="leftBoxContentNumber">
@@ -237,7 +238,7 @@
 
           <div id="statsticFirstContentRight">
             <div id="statisticFirstContentRightTitle">
-              <h1>Saved Money</h1>
+              <h1>Zaoszczędzone</h1>
             </div>
             <div id="chartBox">
               <div id="chart">
@@ -256,7 +257,7 @@
       </div>
       <div id="dashboardContentStatisticsSecondSection">
         <div id="StatisticFirstTitle">
-          <h1>Total Savings</h1>
+          <h1>Podsumowanie</h1>
         </div>
         <div id="statisticSecondBoxChart">
           <div id="chart2">
@@ -273,7 +274,7 @@
       </div>
       <div id="dashboardContentStatisticsThirdSection">
         <div id="StatisticFirstTitle">
-          <h1>All savings</h1>
+          <h1>Wszystkie Cele</h1>
         </div>
         <div id="statisticThirdAllBox">
           <div
@@ -302,7 +303,7 @@
       <div id="dashboardContentDetailsSavingList">
         <div id="dashboardContentDetailsSavingListTitleBox">
           <div id="dashboardContentDetailsSavingListTitle">
-            <h1>{{ currentDisplayOptionDetailsSaving }} savings</h1>
+            <h1>Moje Cele</h1>
           </div>
           <div id="dashboardContentDetailsSavingListOptions">
             <!-- <v-menu transition="scale-transition">
@@ -404,14 +405,14 @@
                     class="text-light-blue-darken-3"
                     variant="tonal"
                     v-bind="props"
-                    text="Deposit"
+                    text="Zdeponuj"
                   >
                   </v-btn>
                 </template>
 
                 <template v-slot:default="{ isActive }">
                   <v-card
-                    title="Deposit"
+                    title="Zdeponuj"
                     color="grey-darken-3"
                     class="text-green-accent-2"
                   >
@@ -419,7 +420,7 @@
                       <v-text-field
                         v-model="toDepoistMoney"
                         :counter="10"
-                        label="Ammount"
+                        label="Kwota"
                         required
                         hide-details
                       ></v-text-field>
@@ -429,7 +430,7 @@
                         class="text-light-green-accent-3 mt-5"
                         variant="tonal"
                         @click.prevent="depositMoney()"
-                        >Submit</v-btn
+                        >Zatwierdź</v-btn
                       >
                     </v-card-text>
 
@@ -439,7 +440,7 @@
                       <v-btn
                         class="text-light-blue-darken-3"
                         variant="tonal"
-                        text="Close"
+                        text="Zamknij"
                         @click="isActive.value = false"
                       ></v-btn>
                     </v-card-actions>
@@ -454,7 +455,7 @@
                     class="text-light-blue-darken-3"
                     variant="tonal"
                     v-bind="props"
-                    text="Withdraw"
+                    text="Wypłać"
                   >
                   </v-btn>
                 </template>
@@ -463,13 +464,13 @@
                   <v-card
                     color="grey-darken-3"
                     class="text-green-accent-2"
-                    title="Withdraw"
+                    title="Wypłać"
                   >
                     <v-card-text class="text-white">
                       <v-text-field
                         v-model="toDepoistMoney"
                         :counter="10"
-                        label="Ammount"
+                        label="Kwota"
                         required
                         hide-details
                       ></v-text-field>
@@ -479,7 +480,7 @@
                         class="text-light-green-accent-3 mt-5"
                         variant="tonal"
                         @click.prevent="withdrawMoney()"
-                        >Submit</v-btn
+                        >Zatwierdź</v-btn
                       >
                     </v-card-text>
 
@@ -489,7 +490,7 @@
                       <v-btn
                         class="text-light-blue-darken-3"
                         variant="tonal"
-                        text="Close"
+                        text="Zamknij"
                         @click="isActive.value = false"
                       ></v-btn>
                     </v-card-actions>
@@ -504,14 +505,14 @@
                     class="text-light-blue-darken-3"
                     variant="tonal"
                     v-bind="props"
-                    text="Settings"
+                    text="Edytuj"
                   >
                   </v-btn>
                 </template>
 
                 <template v-slot:default="{ isActive }">
                   <v-card
-                    title="Settings"
+                    title="Edycja"
                     color="grey-darken-3"
                     class="text-green-accent-2"
                   >
@@ -521,7 +522,7 @@
                           <v-text-field
                             v-model="bank.name"
                             :counter="10"
-                            label="Name"
+                            label="Nazwa"
                             required
                             hide-details
                           ></v-text-field>
@@ -530,7 +531,7 @@
                           <v-text-field
                             v-model="bank.goal"
                             :counter="10"
-                            label="Goal"
+                            label="Cel"
                             required
                             hide-details
                           ></v-text-field>
@@ -538,7 +539,7 @@
                       </div>
                       <v-textarea
                         class="mt-6"
-                        label="Description"
+                        label="Opis"
                         v-model="bank.description"
                       ></v-textarea>
                       <v-btn
@@ -547,7 +548,7 @@
                         class="text-light-green-accent-3"
                         variant="tonal"
                         @click.prevent="updateBank(bank.id)"
-                        >Submit</v-btn
+                        >Zatwierdź</v-btn
                       >
                     </v-card-text>
 
@@ -557,7 +558,7 @@
                       <v-btn
                         class="text-light-blue-darken-3"
                         variant="tonal"
-                        text="Close"
+                        text="Zamknij"
                         @click="isActive.value = false"
                       ></v-btn>
                     </v-card-actions>
@@ -628,7 +629,7 @@
               <div id="rowRightTitleIcon">
                 <img id="titleIcon" src="../Images/file.png" />
               </div>
-              <div id="rowRightTitleText">Description</div>
+              <div id="rowRightTitleText">Opis</div>
             </div>
             <div id="rowRightDescription">
               <div id="rowRightDescriptionbar"></div>
@@ -816,7 +817,7 @@ export default {
 
       series: [
         {
-          name: "Money",
+          name: "Kwota",
           color: "#C16E36",
           data: [0],
         },
@@ -824,9 +825,9 @@ export default {
 
       seriesYear: [
         {
-          name: "Money",
+          name: "Kwota",
           color: "#41b883",
-          data: [200, 140, 345, 50, 449, 1160, 370, 81, 900, 1800, 1982, 200],
+          data: [0],
         },
       ],
     };
@@ -869,7 +870,7 @@ export default {
     logout() {
       localStorage.clear();
       this.$router.push("/");
-      this.myUseToast("logout sucesfully", "success");
+      this.myUseToast("Wylogowano", "success");
     },
     async getUserData() {
       let getter = await axios.get(
@@ -908,14 +909,14 @@ export default {
         this.newBank
       );
       if (adder.status == 200) {
-        this.myUseToast("New Bank Created", "success");
+        this.myUseToast("Cel utworzony", "success");
         this.getBankData();
         this.newBank.name = "";
         this.newBank.goal = "";
         this.newBank.description = "";
         this.CalculateBanks();
       } else {
-        this.myUseToast("Sorry we can't do that", "error");
+        this.myUseToast("Błąd tworzenia celu", "error");
       }
       await this.calculateBankMean();
       await this.calculateAllSavingChart();
@@ -984,7 +985,7 @@ export default {
         deposit
       );
       if (creater.status == 200) {
-        this.myUseToast("Deposit successfully", "success");
+        this.myUseToast("Zdeponowano", "success");
       }
       await this.getOperations();
       await this.getDeposited();
@@ -997,7 +998,7 @@ export default {
 
     async withdrawMoney() {
       if (this.toDepoistMoney > this.depositedMoney) {
-        this.myUseToast("Too little money", "error");
+        this.myUseToast("Zbyt mało pieniędzy", "error");
       } else {
         let deposit = {
           type: "withdraw",
@@ -1011,7 +1012,7 @@ export default {
           deposit
         );
         if (creater.status == 200) {
-          this.myUseToast("Withdraw successfully", "success");
+          this.myUseToast("Wypłacono", "success");
         }
         await this.getOperations();
         await this.getDeposited();
@@ -1140,7 +1141,7 @@ export default {
         this.bank
       );
       if (updater.status == 200) {
-        this.myUseToast("Update Sucesfully", "success");
+        this.myUseToast("Upaktualniono", "success");
         this.getBankData(updater.data.name);
         this.showBankDetails(updater.data.name);
       }
@@ -1148,13 +1149,13 @@ export default {
 
     async updateUser() {
       if (this.user.newPassowrd != this.user.newPassowrdConfirm) {
-        this.myUseToast("Passwords not match", "error");
+        this.myUseToast("Podane hasła nie pasują", "error");
       } else {
         let checker = await axios.get(
           `http://localhost:3100/api/user/checkPassword/${this.user.login}/${this.user.passowrd}`
         );
         if (checker.data == "password not Match") {
-          this.myUseToast("Passwords incorrect", "error");
+          this.myUseToast("Złe hasło", "error");
         } else {
           let updateUser = {
             login: this.user.login,
@@ -1186,11 +1187,11 @@ export default {
       );
       this.getBankData(updater.data.name);
       if (updater.status == 200 && updater.data.status == "closed") {
-        this.myUseToast("Closed automatically ", "success");
+        this.myUseToast("Zamknięto cel automatycznie ", "success");
         await this.getBankData();
         await this.CalculateBanks();
       } else if (updater.status == 200 && updater.data.status == "current") {
-        this.myUseToast("Opened automatically ", "success");
+        this.myUseToast("Otwarto cel automatycznie ", "success");
         await this.getBankData();
         await this.CalculateBanks();
       }

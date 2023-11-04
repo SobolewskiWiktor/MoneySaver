@@ -3,12 +3,12 @@
     <img id="mainLogo" src="@/Images/Logo_Black.png" />
     <div id="loginBoxPanel" v-if="panelType === 'login'">
       <div id="LoginPanelTitle">
-        <h1>Login</h1>
+        <h1>Logowanie</h1>
       </div>
       <v-text-field
         v-model="loginLogin"
         class="w-100 h-0 text-white loginInput"
-        label="Name"
+        label="Login"
         color="white"
       ></v-text-field>
       <v-text-field
@@ -16,16 +16,17 @@
         v-model="loginPassword"
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show1 ? 'text' : 'password'"
-        label="Password"
+        label="Hasło"
         counter
         @click:append="show1 = !show1"
       ></v-text-field>
       <div id="buttons">
         <v-btn
           @click.prevent="login('login')"
-          class="bg-transparent text-white w-50"
+          class="bg-transparent text-green-accent-2 w-50"
+          variant="tonal"
         >
-          Login
+          Zaloguj
         </v-btn>
       </div>
       <div id="buttons">
@@ -33,27 +34,27 @@
           @click.prevent="turnRegister()"
           class="bg-transparent text-white w-50"
         >
-          Register Insted
+          Zarejestruj się
         </v-btn>
       </div>
     </div>
 
     <div id="loginBoxPanelRegister" v-else>
       <div id="LoginPanelTitle">
-        <h1>Register</h1>
+        <h1>Rejestracja</h1>
       </div>
       <div id="registerFormSection">
         <div class="registerFormRow">
           <v-text-field
             v-model="registerName"
             class="w-25 text-white"
-            label="Name"
+            label="Imię"
             color="white"
           ></v-text-field>
           <v-text-field
             v-model="registerSurname"
             class="ml-2 w-25 text-white"
-            label="Surname"
+            label="Nazwisko"
             color="white"
           ></v-text-field>
         </div>
@@ -67,7 +68,7 @@
           <v-text-field
             v-model="registerMail"
             class="ml-2 w-25 text-white"
-            label="email"
+            label="Mail"
             color="white"
           ></v-text-field>
         </div>
@@ -75,14 +76,14 @@
           <v-text-field
             v-model="registerPassword"
             class="w-25 text-white"
-            label="Password"
+            label="Hasło"
             color="white"
             type="password"
           ></v-text-field>
           <v-text-field
             v-model="registerPasswordConfirm"
             class="ml-2 w-25 text-white"
-            label="Password"
+            label="Hasło"
             color="white"
             type="password"
           ></v-text-field>
@@ -91,9 +92,10 @@
       <div id="buttons">
         <v-btn
           @click.prevent="login('register')"
-          class="bg-transparent text-white w-50"
+          class="bg-transparent text-green-accent-2 w-50"
+          variant="tonal"
         >
-          Register
+          Zarejestruj
         </v-btn>
       </div>
       <div id="buttons">
@@ -101,7 +103,7 @@
           @click.prevent="turnLogin()"
           class="bg-transparent text-white w-50"
         >
-          Login Insted
+          Zaloguj się
         </v-btn>
       </div>
     </div>
@@ -145,11 +147,11 @@ export default {
       if (action == "login") {
         let checkFailedLogin = 0;
         if (this.loginLogin == "") {
-          this.myUseToast("Enter Login", "warning");
+          this.myUseToast("Podaj Login", "warning");
           checkFailedLogin = 1;
         }
         if (this.loginPassword == "") {
-          this.myUseToast("Enter Password", "warning");
+          this.myUseToast("Podaj Hasło", "warning");
           checkFailedLogin = 1;
         }
 
@@ -164,35 +166,35 @@ export default {
               user
             );
             if (loggin.status == 200) {
-              this.myUseToast("Login Success", "success");
+              this.myUseToast("Zalogowano", "success");
               let token = loggin.data.token;
               localStorage.setItem("token", token);
               this.$router.push("/dashboard");
             }
           } catch (err) {
-            this.myUseToast("Login Failed", "error");
+            this.myUseToast("Błąd Logowania", "error");
           }
         }
       } else {
         let checkFailedRegister = 0;
         if (this.registerLogin == "") {
-          this.myUseToast("Enter Login", "warning");
+          this.myUseToast("Podaj Login", "warning");
           checkFailedRegister = 1;
         }
         if (this.registerPassword == "") {
-          this.myUseToast("Enter Password", "warning");
+          this.myUseToast("podaj hasło", "warning");
           checkFailedRegister = 1;
         }
         if (this.registerName == "") {
-          this.myUseToast("Enter Name", "warning");
+          this.myUseToast("Podaj Imie", "warning");
           checkFailedRegister = 1;
         }
         if (this.registerSurname == "") {
-          this.myUseToast("Enter Surname", "warning");
+          this.myUseToast("Podaj Nazwisko", "warning");
           checkFailedRegister = 1;
         }
         if (this.registerPassword != this.registerPasswordConfirm) {
-          this.myUseToast("Passwords not match", "error");
+          this.myUseToast("Podane hasła nie pasują", "error");
           checkFailedRegister = 1;
         }
 
@@ -211,9 +213,9 @@ export default {
           );
           if (loggin.status == 200) {
             if (loggin.data.registerStatus == "Accout exist") {
-              this.myUseToast("Login has been taken", "error");
+              this.myUseToast("Login jest już zajęty", "error");
             } else {
-              this.myUseToast("Register Success", "success");
+              this.myUseToast("Zarejestrowano pomyślnie", "success");
               (this.registerName = ""),
                 (this.registerSurname = ""),
                 (this.registerLogin = ""),
