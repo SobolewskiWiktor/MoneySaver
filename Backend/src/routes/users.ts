@@ -96,18 +96,30 @@ router.post("/register", async (req, res) => {
 
 router.post("/update/:login", async (req, res) => {
   try {
-    let updater = await prisma.users.update({
-      where: {
-        login: String(req.params.login),
-      },
-      data: req.body,
+    const saltRounds = 10;
+    console.log(req.body);
+    bcrypt.genSalt(saltRounds, async (err, salt) => {
+      bcrypt.hash(String(req.body.password), salt, async (err, hash) => {
+        let updater = await prisma.users.update({
+          where: {
+            login: String(req.params.login),
+          },
+          data: {
+            passowrd: String(hash),
+            name: String(req.body.name),
+            surname: String(req.body.surname),
+            mail: String(req.body.mail),
+          }
+        });
+        res.status(200).json(updater);
+      });
     });
-
-    res.status(200).json(updater);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
+
 
 router.get("/getdata/:login", async (req, res) => {
   try {
@@ -128,4 +140,36 @@ router.get("/getdata/:login", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get("/checkPassword/:login/:password", async(req,res)=>{
+  try
+  {
+    const getter = await prisma.users.findUnique({
+      where:
+      {
+        login: String(req.params.login)
+      },
+      select:
+      {
+        passowrd: true, 
+      }
+    })
+    
+    let passwordDB = String(getter?.passowrd);
+
+    let match = await bcrypt.compare(String(req.params.password), passwordDB);
+    if(match)
+    {
+      res.status(200).json("password Match")
+    }
+    else
+    {
+      res.status(200).json("password not Match")
+    }
+  }
+  catch(err)
+  {
+    res.status(500).json(err)
+  }
+})
 module.exports = router;

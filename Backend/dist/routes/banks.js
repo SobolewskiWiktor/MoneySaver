@@ -77,15 +77,23 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.post("/update/:bankId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
         const updater = yield prisma.banks.update({
             where: {
                 id: Number(req.params.bankId),
             },
-            data: req.body,
+            data: {
+                goal: Number(req.body.goal),
+                description: String(req.body.description),
+                name: String(req.body.name),
+                status: String(req.body.status),
+            }
         });
+        console.log(updater);
         res.status(200).json(updater);
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 }));

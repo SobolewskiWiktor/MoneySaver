@@ -99,15 +99,27 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 router.post("/update/:login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let updater = yield prisma.users.update({
-            where: {
-                login: String(req.params.login),
-            },
-            data: req.body,
-        });
-        res.status(200).json(updater);
+        const saltRounds = 10;
+        console.log(req.body);
+        bcrypt.genSalt(saltRounds, (err, salt) => __awaiter(void 0, void 0, void 0, function* () {
+            bcrypt.hash(String(req.body.password), salt, (err, hash) => __awaiter(void 0, void 0, void 0, function* () {
+                let updater = yield prisma.users.update({
+                    where: {
+                        login: String(req.params.login),
+                    },
+                    data: {
+                        passowrd: String(hash),
+                        name: String(req.body.name),
+                        surname: String(req.body.surname),
+                        mail: String(req.body.mail),
+                    }
+                });
+                res.status(200).json(updater);
+            }));
+        }));
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 }));
@@ -125,6 +137,29 @@ router.get("/getdata/:login", (req, res) => __awaiter(void 0, void 0, void 0, fu
             },
         });
         res.status(200).json(getter);
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+}));
+router.get("/checkPassword/:login/:password", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const getter = yield prisma.users.findUnique({
+            where: {
+                login: String(req.params.login)
+            },
+            select: {
+                passowrd: true,
+            }
+        });
+        let passwordDB = String(getter === null || getter === void 0 ? void 0 : getter.passowrd);
+        let match = yield bcrypt.compare(String(req.params.password), passwordDB);
+        if (match) {
+            res.status(200).json("password Match");
+        }
+        else {
+            res.status(200).json("password not Match");
+        }
     }
     catch (err) {
         res.status(500).json(err);

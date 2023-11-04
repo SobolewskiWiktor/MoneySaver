@@ -1,6 +1,5 @@
 <template>
   <div id="loading" v-if="isLoading == true">
-  
     <v-progress-circular
       v-if="isLoading"
       :size="150"
@@ -84,6 +83,7 @@
             </v-dialog>
           </div>
           <div id="buttonMenuContainer">
+            <!-- 
             <v-dialog width="500">
               <template v-slot:activator="{ props }">
                 <v-btn
@@ -95,7 +95,7 @@
                 </v-btn>
               </template>
 
-              <template v-slot:default="{ isActive }">
+                <template v-slot:default="{ isActive }">
                 <v-card
                   title="Settings"
                   color="grey-darken-3"
@@ -105,6 +105,7 @@
                     <div id="settingsDetailsBankRow">
                       <div id="settingsDetailsBankLeft">
                         <v-text-field
+                          v-model="user.name"
                           :counter="10"
                           label="Name"
                           required
@@ -113,6 +114,7 @@
                       </div>
                       <div id="settingsDetailsBankRight">
                         <v-text-field
+                          v-model="user.surname"
                           :counter="10"
                           label="Surname"
                           required
@@ -123,6 +125,7 @@
                     <div id="settingsDetailsSettingsRow">
                       <div id="settingsDetailsBankLeft">
                         <v-text-field
+                          v-model="user.mail"
                           :counter="10"
                           label="Mail"
                           required
@@ -131,8 +134,30 @@
                       </div>
                       <div id="settingsDetailsBankRight">
                         <v-text-field
+                          v-model="user.passowrd"
                           :type="show1 ? 'text' : 'password'"
-                          label="Password"
+                          label="Old Password"
+                          required
+                          hide-details
+                        ></v-text-field>
+                      </div>
+                    </div>
+                    <div id="settingsDetailsSettingsRowEnd">
+                      <div id="settingsDetailsBankLeft">
+                        <v-text-field
+                          v-model="user.newPassowrd"
+                          :counter="10"
+                          :type="show1 ? 'text' : 'password'"
+                          label="New Passowrd"
+                          required
+                          hide-details
+                        ></v-text-field>
+                      </div>
+                      <div id="settingsDetailsBankRight">
+                        <v-text-field
+                          v-model="user.newPassowrdConfirm"
+                          :type="show1 ? 'text' : 'password'"
+                          label="Confirm Password"
                           required
                           hide-details
                         ></v-text-field>
@@ -143,6 +168,7 @@
                       block
                       class="text-light-green-accent-3"
                       variant="tonal"
+                      @click.prevent="updateUser()"
                       >Submit</v-btn
                     >
                   </v-card-text>
@@ -157,10 +183,10 @@
                       @click="isActive.value = false"
                     ></v-btn>
                   </v-card-actions>
-                </v-card>
+                </v-card> 
               </template>
             </v-dialog>
-          </div>
+          --></div>
           <div id="buttonMenuContainer">
             <v-btn
               @click.prevent="logout()"
@@ -199,7 +225,9 @@
                 <h1>Closed Banks</h1>
               </div>
               <div id="statisticFirstContentLeftBoxContent">
-                <div id="leftBoxContentNumber"><h1>8</h1></div>
+                <div id="leftBoxContentNumber">
+                  <h1>{{ allClosedBanksCount }}</h1>
+                </div>
                 <div id="leftBoxContentImageBroken">
                   <img id="piggybankIconBroken" src="@/Images/broken.png" />
                 </div>
@@ -248,7 +276,11 @@
           <h1>All savings</h1>
         </div>
         <div id="statisticThirdAllBox">
-          <div id="statisticThirdAllRow" v-for="(item, i) in allBanksMean" :key="i">
+          <div
+            id="statisticThirdAllRow"
+            v-for="(item, i) in allBanksMean"
+            :key="i"
+          >
             <div id="statisticThirdRowNumber">
               <h1>{{ i }}</h1>
             </div>
@@ -260,10 +292,9 @@
               ></v-progress-linear>
             </div>
             <div id="statisticThirdRowBankName">
-              <h1>{{allBanksMean[i].name}}</h1>
+              <h1>{{ allBanksMean[i].name }}</h1>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -274,7 +305,7 @@
             <h1>{{ currentDisplayOptionDetailsSaving }} savings</h1>
           </div>
           <div id="dashboardContentDetailsSavingListOptions">
-            <v-menu transition="scale-transition">
+            <!-- <v-menu transition="scale-transition">
               <template v-slot:activator="{ props }">
                 <v-btn
                   class="text-cyan-lighten-3"
@@ -294,31 +325,66 @@
                 </v-list-item>
               </v-list>
             </v-menu>
-          </div>
+          --></div>
         </div>
         <div id="dashboardContentDeatilsSavingListBox">
           <div id="listscroll">
             <div
-              id="dashboardContentDetailsSavingListRow"
               v-for="(item, index) in banks"
               :key="index"
               @click.prevent="showBankDetails(item.name)"
             >
-              <div id="dashboardContentDetailsSavingListRowImage">
-                <img id="savingIcon" src="../Images/regular/paper-plane.svg" />
-              </div>
-              <div id="dashboardContentDetailsSavingListRowText">
-                <h1>{{ item.name }}</h1>
-              </div>
-              <div id="dashboardContentDetailsSavingListRowMoney">
-                <div id="rowMoneyIcon">
+              <div
+                v-if="item.status === 'current'"
+                id="dashboardContentDetailsSavingListRow"
+              >
+                <!-- Zawartość dla statusu 'current' -->
+                <div id="dashboardContentDetailsSavingListRowImage">
                   <img
-                    id="rowMoneyIconImage"
-                    src="../Images/dollar-symbol.png"
+                    id="savingIcon"
+                    src="../Images/regular/paper-plane.svg"
                   />
                 </div>
-                <div id="rowMoneyAmmout">
-                  <h1>{{ item.goal }}</h1>
+                <div id="dashboardContentDetailsSavingListRowText">
+                  <h1>{{ item.name }}</h1>
+                </div>
+                <div id="dashboardContentDetailsSavingListRowMoney">
+                  <div id="rowMoneyIcon">
+                    <img
+                      id="rowMoneyIconImage"
+                      src="../Images/dollar-symbol.png"
+                    />
+                  </div>
+                  <div id="rowMoneyAmmout">
+                    <h1>{{ item.goal }}</h1>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else-if="item.status === 'closed'"
+                id="dashboardContentDetailsSavingListRowClosed"
+              >
+                <!-- Zawartość dla statusu 'closed' -->
+                <div id="dashboardContentDetailsSavingListRowImage">
+                  <img
+                    id="savingIcon"
+                    src="../Images/regular/paper-plane.svg"
+                  />
+                </div>
+                <div id="dashboardContentDetailsSavingListRowText">
+                  <h1>{{ item.name }}</h1>
+                </div>
+                <div id="dashboardContentDetailsSavingListRowMoney">
+                  <div id="rowMoneyIcon">
+                    <img
+                      id="rowMoneyIconImage"
+                      src="../Images/dollar-symbol.png"
+                    />
+                  </div>
+                  <div id="rowMoneyAmmout">
+                    <h1>{{ item.goal }}</h1>
+                  </div>
                 </div>
               </div>
             </div>
@@ -453,6 +519,7 @@
                       <div id="settingsDetailsBankRow">
                         <div id="settingsDetailsBankLeft">
                           <v-text-field
+                            v-model="bank.name"
                             :counter="10"
                             label="Name"
                             required
@@ -461,19 +528,25 @@
                         </div>
                         <div id="settingsDetailsBankRight">
                           <v-text-field
+                            v-model="bank.goal"
                             :counter="10"
-                            label="Ammount"
+                            label="Goal"
                             required
                             hide-details
                           ></v-text-field>
                         </div>
                       </div>
-                      <v-textarea class="mt-6" label="Description"></v-textarea>
+                      <v-textarea
+                        class="mt-6"
+                        label="Description"
+                        v-model="bank.description"
+                      ></v-textarea>
                       <v-btn
                         type="submit"
                         block
                         class="text-light-green-accent-3"
                         variant="tonal"
+                        @click.prevent="updateBank(bank.id)"
                         >Submit</v-btn
                       >
                     </v-card-text>
@@ -610,8 +683,6 @@ export default {
       toastService: toast,
       isLoading: true,
 
-
-
       user: {
         name: "",
         surname: "",
@@ -619,6 +690,8 @@ export default {
         login: "",
         password: "",
         id: "",
+        newPassowrd: "",
+        newPassowrdConfirm: "",
       },
 
       banks: [{}],
@@ -645,7 +718,7 @@ export default {
       ProgressBarDetails: 0,
 
       allBanksCount: 1,
-      allClosedBanksCount: 1,
+      allClosedBanksCount: 0,
       allBanksMean: [{}],
       test: 10,
       items: [{ title: "All" }, { title: "Current" }, { title: "Closed" }],
@@ -656,6 +729,10 @@ export default {
       show1: false,
       show2: true,
       password: "Password",
+
+      updateBankName: "",
+      updateBankAmmount: "",
+      updateDescription: "",
 
       chartOptions: {
         chart: {
@@ -914,6 +991,8 @@ export default {
       await this.calculateAllSavingChart();
       await this.calculateYearSanvingChart();
       await this.calculateBankMean();
+      await this.showBankDetails(this.bank.name);
+      await this.automaticCloseAndOpen();
     },
 
     async withdrawMoney() {
@@ -939,12 +1018,14 @@ export default {
         await this.calculateAllSavingChart();
         await this.calculateYearSanvingChart();
         await this.calculateBankMean();
+        await this.showBankDetails(this.bank.name);
+        await this.automaticCloseAndOpen();
       }
     },
 
     async CalculateBanks() {
       this.allBanksCount = 1;
-      this.allClosedBanksCount = 1;
+      this.allClosedBanksCount = 0;
       this.banks.forEach((elem, index) => {
         if (elem.status == "current") {
           this.allBanksCount = this.allBanksCount + 1;
@@ -1039,8 +1120,7 @@ export default {
       }
     },
 
-    async detailsAfterLogin()
-    {
+    async detailsAfterLogin() {
       this.depositedMoney = 0;
       this.operations = [{}];
       this.bank.name = this.banks[0].name;
@@ -1052,6 +1132,68 @@ export default {
       await this.getOperations();
       await this.getDeposited();
       this.ProgressBarDetails = (this.depositedMoney * 100) / this.bank.goal;
+    },
+
+    async updateBank() {
+      const updater = await axios.post(
+        `http://localhost:3100/api/banks/update/${this.bank.id}`,
+        this.bank
+      );
+      if (updater.status == 200) {
+        this.myUseToast("Update Sucesfully", "success");
+        this.getBankData(updater.data.name);
+        this.showBankDetails(updater.data.name);
+      }
+    },
+
+    async updateUser() {
+      if (this.user.newPassowrd != this.user.newPassowrdConfirm) {
+        this.myUseToast("Passwords not match", "error");
+      } else {
+        let checker = await axios.get(
+          `http://localhost:3100/api/user/checkPassword/${this.user.login}/${this.user.passowrd}`
+        );
+        if (checker.data == "password not Match") {
+          this.myUseToast("Passwords incorrect", "error");
+        } else {
+          let updateUser = {
+            login: this.user.login,
+            password: this.user.newPassowrd,
+            name: this.user.name,
+            surname: this.user.surname,
+            mail: this.user.mail,
+            id: this.user.id,
+          };
+
+          let updater = await axios.post(
+            `http://localhost:3100/api/user/update/:${updateUser.login}`,
+            updateUser
+          );
+          console.log(updater);
+        }
+      }
+    },
+
+    async automaticCloseAndOpen() {
+      if (Number(this.bank.goal) <= this.depositedMoney) {
+        this.bank.status = "closed";
+      } else {
+        this.bank.status = "current";
+      }
+      const updater = await axios.post(
+        `http://localhost:3100/api/banks/update/${this.bank.id}`,
+        this.bank
+      );
+      this.getBankData(updater.data.name);
+      if (updater.status == 200 && updater.data.status == "closed") {
+        this.myUseToast("Closed automatically ", "success");
+        await this.getBankData();
+        await this.CalculateBanks();
+      } else if (updater.status == 200 && updater.data.status == "current") {
+        this.myUseToast("Opened automatically ", "success");
+        await this.getBankData();
+        await this.CalculateBanks();
+      }
     },
 
     myUseToast(message: string, type: string) {

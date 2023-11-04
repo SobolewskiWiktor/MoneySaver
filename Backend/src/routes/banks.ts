@@ -74,15 +74,24 @@ router.post("/create", async (req, res) => {
 
 router.post("/update/:bankId", async (req, res) => {
   try {
+    console.log(req.body)
     const updater = await prisma.banks.update({
       where: {
         id: Number(req.params.bankId),
       },
-      data: req.body,
+      data:
+      {
+        goal: Number(req.body.goal),
+        description: String(req.body.description),
+        name: String(req.body.name),
+        status: String(req.body.status),
+      }
     });
-
+    
+    console.log(updater)
     res.status(200).json(updater);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
